@@ -92,7 +92,7 @@ module.exports = {
 						}
 					
 						Feeds.create({
-							feed: params.url,
+							feed: params.search,
 							poster: rss[0].meta.image.url,
 							title: rss[0].meta.title,
 							urlTitle: urlTitle.replace(/ /g,"-"),
