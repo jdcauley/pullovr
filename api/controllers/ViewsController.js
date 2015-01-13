@@ -70,7 +70,7 @@ module.exports = {
 			if(err){
 				res.json(err);
 			}
-			if(!feeds){
+			if(feeds.length < 1){
 
 				parser(params.search, function(err, rss) {
 					
