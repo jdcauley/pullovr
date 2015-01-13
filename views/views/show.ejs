@@ -1,0 +1,30 @@
+ <div class="feed-info-container">
+    <div class="feed-meta">
+      <h4><%= feed.title %></h4>
+      <p><%= feed.description %></p>
+    </div>
+  
+  </div>
+  
+  <div class="playlist-container">       
+  <audio id="audio-playlist" controls  
+    poster="<%= feed.poster %>" class="video-js vjs-default-skin">
+    <source src="<%= feed.episodes[0].primaryEnclosureUrl %>" type="audio/mpeg">
+      </audio>
+      <div class="jp-type-playlist" style=''>
+      <div id="audio-playlist-vjs-playlist" class='vjs-playlist jp-playlist' style='width:100%'>
+        <ul>
+        <% var episodes = feed.episodes %>
+        <% for(var i = 0; i < episodes.length; i++){ %>
+       
+          <li>
+            <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-src="<%= episodes[i].extFree %>"> <%= episodes[i].title %> </a>
+          </li>
+
+        <% } %>     
+        </ul>
+      </div>
+      </div>
+  </div>
+
+        

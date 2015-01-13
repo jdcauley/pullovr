@@ -1,0 +1,137 @@
+/**
+ * importer.less
+ *
+ * By default, new Sails projects are configured to compile this file
+ * from LESS to CSS.  Unlike CSS files, LESS files are not compiled and
+ * included automatically unless they are imported below.
+ *
+ * The LESS files imported below are compiled and included in the order
+ * they are listed.  Mixins, variables, etc. should be imported first
+ * so that they can be accessed by subsequent LESS stylesheets.
+ *
+ * (Just like the rest of the asset pipeline bundled in Sails, you can
+ * always omit, customize, or replace this behavior with SASS, SCSS,
+ * or any other Grunt tasks you like.)
+ */
+
+
+
+// For example:
+//
+// @import 'variables/colors.less';
+// @import 'mixins/foo.less';
+// @import 'mixins/bar.less';
+// @import 'mixins/baz.less';
+//
+// @import 'styleguide.less';
+// @import 'pages/login.less';
+@import 'normalize.less';
+@import 'playlist.less';
+//
+// etc.
+@font-family: 'Helvetica Neue', Helvetica, sans-serif;
+
+@white: #fff;
+@black: #000;
+@light-gray: #f6f6f6;
+
+body{
+  font-family: @font-family;
+}
+
+input{
+  border: none;
+  &:focus{
+    outline: none;
+  }
+}
+.show-container{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	width: 100%;
+}
+.card{
+	flex-grow: 1;
+  align-self: center;
+	max-width: 144px;
+	max-height: 144px;
+  padding: 20px;
+  background: @light-gray;
+  color: @black;
+  text-decoration: none;
+  &:hover{
+    background: darken(@light-gray, 10%);
+  }
+}
+
+
+.poster{
+	display: block;
+  max-width: 144px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feed-form{
+  height: auto;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  background: @light-gray;
+  border-bottom: 3px solid #0048ff;
+}
+.input{
+  display: inline-block;
+  padding: 22px 2%;
+  margin-right: 0;
+  margin-left: 0;
+  border: none;
+  font-size: 18px;
+  width: 68%;
+  background: @white;
+}
+.submit{
+  display: inline-block;
+  width: 27.7%;
+  padding: 10px 1%;
+  margin: 0 -3px;
+  color: @black;
+  text-align: center;
+  font-size: 16px;
+  height: 64px;
+  background: @light-gray;
+  border: none;
+  &:active{
+    color: @black;
+    background: darken(@light-gray, 10%);
+  }
+  &:hover{
+    color: @black;
+    background: darken(@light-gray, 10%);
+  }
+  &:focus{
+    color: @black;
+    background: darken(@light-gray, 10%);
+  }
+}
+
+.podcast-player{
+  height: 250px;
+  width: 250px;
+}
+.feed-info-container{
+  float: left;
+  display: inline-block;
+  width: 60%;
+}
+.feed-meta{
+  margin-left: 80px;
+  margin-right: 80px;
+}
+.playlist-container{
+  display: inline-block;
+  width: 30%;
+}
