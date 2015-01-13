@@ -16,7 +16,8 @@ module.exports = {
 			if (err) {
 				res.json(err);
 			}
-			var urlTitle = rss[0].meta.title
+			console.log(rss);
+			var urlTitle = rss[0].meta.title;
 			Feeds.findOne({feed: params.url}, function(err, feed){
 				
 				if(rss[0]['itunes:keywords']){ 
