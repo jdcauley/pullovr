@@ -12,11 +12,7 @@ module.exports = {
 	index: function(req, res){
 
 		Feeds.find().limit(12).exec(function(err, feeds){
-			if(feeds){
-				res.view({feeds: feeds});
-			} else {
-				res.view();
-			}
+			res.view({feeds: feeds});
 		});
 
 	},

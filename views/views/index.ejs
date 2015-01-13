@@ -1,8 +1,10 @@
 <div class="container show-container">
+<%if(feeds){%>
 <% feeds.forEach(function(feed){ %>
   <a class="card" href="/podcast/<%= feed.id %>">
     <img class="poster" src="<%= feed.poster %>" alt="<%= feed.title %>">
   </a>
 
 <% }) %>
+<% } %>
 </div>
