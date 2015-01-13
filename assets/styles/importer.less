@@ -34,6 +34,7 @@
 @white: #fff;
 @black: #000;
 @light-gray: #f6f6f6;
+@blue: #0048ff;
 
 body{
   font-family: @font-family;
@@ -44,6 +45,14 @@ input{
   &:focus{
     outline: none;
   }
+}
+.brand{
+	margin-left: 25px;
+	a{
+		font-weight: 200;
+		color: @blue;
+		text-decoration: none;
+	}
 }
 .show-container{
 	display: flex;
@@ -58,6 +67,7 @@ input{
 	max-width: 144px;
 	max-height: 144px;
   padding: 20px;
+	margin-bottom: 20px;
   background: @light-gray;
   color: @black;
   text-decoration: none;
@@ -81,7 +91,7 @@ input{
   margin-right: auto;
   margin-bottom: 40px;
   background: @light-gray;
-  border-bottom: 3px solid #0048ff;
+  border-bottom: 3px solid @blue;
 }
 .input{
   display: inline-block;
