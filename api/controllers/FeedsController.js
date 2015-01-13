@@ -16,7 +16,7 @@ module.exports = {
 			if (err) {
 				res.json(err);
 			}
-			console.log(rss);
+			console.log(rss[0]);
 			var urlTitle = rss[0].meta.title;
 			Feeds.findOne({feed: params.url}, function(err, feed){
 				
