@@ -16,8 +16,6 @@ module.exports = {
 			if (err) {
 				res.json(err);
 			}
-			console.log(rss.meta.title);
-			var urlTitle = rss.meta.title;
 			Feeds.findOne({feed: params.url}, function(err, feed){
 				
 				if(rss[0]['itunes:keywords']){ 
@@ -31,7 +29,7 @@ module.exports = {
 						feed: params.url,
 						poster: rss[0].meta.image.url,
 						title: rss[0].meta.title,
-						urlTitle: urlTitle.replace(/ /g,"-"),
+						urlTitle: rss[0].meta.title.replace(/ /g,"-"),
 						site: rss[0].meta.link,
 						copyright: rss[0].meta.copyright,
 						publisher: rss[0].meta.author,
