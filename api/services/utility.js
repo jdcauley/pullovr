@@ -7,14 +7,14 @@ module.exports = {
 
       var urlTitle = episode.title
       var urlTitle = urlTitle.replace(/ /g,"-");
-        console.log(episode.enclosures[0].url);
+
         Episodes.findOneByPrimaryEnclosureUrl(episode.enclosures[0].url, function(err, found){
           if(err){
             console.log(err);
             callback();
           }
           if(found){
-            console.log('found episode');
+            console.log(episode.enclosures[0].url + ' ' found.id);
             callback();
           } else {
             console.log('creating episode ' + episode.title);
