@@ -10,17 +10,23 @@ module.exports = {
 
 
         Episodes.findOne({primaryEnclosureUrl: episode.enclosures[0].url}, function(err, found){
-          if(err) callback();
-          if(!found){
+          if(err){
+            console.log(err);
+          }
+          if(found){
+            console.log(found);
+            callback();
+          } else {
+            console.log('new episode');
             var theEnclosure = episode.enclosures[0].url;
             var fileType = mime.lookup(theEnclosure);
             var minusExt = theEnclosure.substr(0, theEnclosure.lastIndexOf('.')) || theEnclosure;
 
-						if(episode['content:encoded']){
-							var content = episode['content:encoded']['#'];
-						} else {
-							var content = null;
-						}
+            if(episode['content:encoded']){
+              var content = episode['content:encoded']['#'];
+            } else {
+              var content = null;
+            }
             Episodes.create({
               feed: feedId,
               title: episode.title,
@@ -35,13 +41,20 @@ module.exports = {
               image: episode.image.url,
               primaryEnclosureUrl: episode.enclosures[0].url,
               allEnclosures: episode.enclosures,
-							content: content
+              content: content
             }, function(err, newEpisode){
-              callback();
+              if(err){
+                console.log(err);
+                callback();
+              }
+              if(newEpisode){
+                console.log(err);
+                callback();
+              }
+
+
 
             });
-          } else {
-            callback();
           }
         });
 
