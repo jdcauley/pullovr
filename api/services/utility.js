@@ -14,7 +14,6 @@ module.exports = {
             console.log(err);
           }
           if(found){
-            console.log(found);
             callback();
           } else {
             console.log('new episode');
