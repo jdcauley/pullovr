@@ -2,6 +2,7 @@ var mime = require('mime');
 module.exports = {
 
   getEpisodes: function(feed, feedId, cb){
+    feed.reverse();
 
     async.eachSeries(feed, function(episode, callback){
 

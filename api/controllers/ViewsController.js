@@ -73,7 +73,7 @@ module.exports = {
 			if(feeds.length < 1){
 
 				parser(params.search, function(err, rss) {
-rss.reverse();
+
 					if (err) {
 						res.view({
 							err: err,
