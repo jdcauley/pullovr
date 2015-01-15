@@ -68,26 +68,21 @@ module.exports = {
 
 						parser(feed.feed, function(err, rss) {
 							if(err){
-								console.log(err);
 								callback();
 							}
 							if(rss && (feed.feedUpdated != rss[0].pubDate)){
-								console.log('in rss');
-								if(rss){
+
 									utility.getEpisodes(rss, feed.id, function(err, done){
 										if(err){
-											console.log(err);
 											callback(err);
 										}
 										if(done){
-											console.log(done);
 											callback();
 										}
 									});
-								}
+
 
 							} else {
-								console.log('no change');
 								callback();
 							}
 

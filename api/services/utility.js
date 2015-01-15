@@ -8,15 +8,13 @@ module.exports = {
       var urlTitle = episode.title
       var urlTitle = urlTitle.replace(/ /g,"-");
 
-
         Episodes.findOne({primaryEnclosureUrl: episode.enclosures[0].url}, function(err, found){
           if(err){
-            console.log(err);
+            callback();
           }
           if(found){
             callback();
           } else {
-            console.log('new episode');
             var theEnclosure = episode.enclosures[0].url;
             var fileType = mime.lookup(theEnclosure);
             var minusExt = theEnclosure.substr(0, theEnclosure.lastIndexOf('.')) || theEnclosure;
@@ -43,11 +41,9 @@ module.exports = {
               content: content
             }, function(err, newEpisode){
               if(err){
-                console.log(err);
                 callback();
               }
               if(newEpisode){
-                console.log(err);
                 callback();
               }
 

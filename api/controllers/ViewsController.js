@@ -21,42 +21,42 @@ module.exports = {
 
 		var params = req.params.all();
 
-		Feeds.findOne({id: params.id}).populate('episodes', {limit: 10}).exec(function(err, feed){
+		Feeds.findOne({id: params.id}).populate('episodes', {limit: 12, sort: 'created DESC' }).exec(function(err, feed){
 
 			res.view({feed: feed});
 
 		});
 
 	},
-	
+
 	search: function(req, res){
-		
+
 		var params = req.params.all();
-		
+
 		var searchContent = params.search;
 		var stringArray = searchContent.split(',');
-		
+
 		var searchFeeds = Feeds.find({
   		or : [
-				{ 
+				{
 					title: {
 						contains: searchContent
-					} 
+					}
 				},
-				{ 
+				{
 					publisher: {
 						contains: searchContent
-					} 
+					}
 				},
-				{ 
+				{
 					description: {
 						contains: searchContent
-					} 
+					}
 				},
-				{ 
+				{
 					keywords: {
 						contains: searchContent
-					} 
+					}
 				},
 				{
 					feed: {
@@ -65,7 +65,7 @@ module.exports = {
 				}
 			]
 		});
-		
+
 		searchFeeds.exec(function(err, feeds){
 			if(err){
 				res.json(err);
@@ -73,7 +73,7 @@ module.exports = {
 			if(feeds.length < 1){
 
 				parser(params.search, function(err, rss) {
-					
+
 					if (err) {
 						res.view({
 							err: err,
@@ -82,15 +82,15 @@ module.exports = {
 						});
 					}
 					if(rss){
-						
+
 						var urlTitle = rss[0].meta.title;
-			
-						if(rss[0]['itunes:keywords']){ 
+
+						if(rss[0]['itunes:keywords']){
 							var keywords = rss[0]['itunes:keywords']['#'];
 						} else {
 							var keywords = null
 						}
-					
+
 						Feeds.create({
 							feed: params.search,
 							poster: rss[0].meta.image.url,
@@ -104,7 +104,7 @@ module.exports = {
 							keywords: keywords,
 							categories: rss[0].categories
 						}, function(err, created){
-				
+
 							utility.getEpisodes(rss, created.id, function(err, done){
 								if(err){
 									res.view({
@@ -112,35 +112,35 @@ module.exports = {
 										results: params.search
 									});
 								}
-							
+
 								if(done){
 									res.redirect('/podcast/' + created.id);
 								}
-							
+
 							});
 
 						});
-						
+
 					} else {
-						
+
 						res.view({
 							feeds: feeds,
 							results: params.search
 						});
-						
+
 					}
 
 				});
-				
+
 			} else {
-				
+
 				res.view({
 					feeds: feeds,
 					results: params.search
 				});
 			}
 		});
-		
+
 	}
 
 };
