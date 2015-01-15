@@ -47,7 +47,11 @@ module.exports.routes = {
 	'post /search': {
 		controller: 'ViewsController',
 		action: 'search'
-	}
+	},
+  'get /feeds/fetch/:key': {
+    controller: 'FeedsController',
+    action: 'fetch'
+  }
 
   /***************************************************************************
   *                                                                          *

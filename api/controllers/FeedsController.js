@@ -17,13 +17,13 @@ module.exports = {
 				res.json(err);
 			}
 			Feeds.findOne({feed: params.url}, function(err, feed){
-				
-				if(rss[0]['itunes:keywords']){ 
+
+				if(rss[0]['itunes:keywords']){
 					var keywords = rss[0]['itunes:keywords']['#'];
 				} else {
 					var keywords = null
 				}
-				
+
 				if(!feed){
 					Feeds.create({
 						feed: params.url,
@@ -38,7 +38,7 @@ module.exports = {
 						keywords: keywords,
 						categories: rss[0].categories
 					}, function(err, created){
-						
+
 						utility.getEpisodes(rss, created.id, function(err, done){
 							res.redirect('/');
 						});
@@ -49,6 +49,63 @@ module.exports = {
 				}
 			})
 		});
+	},
+
+	fetch: function(req, res){
+
+		var params = req.params.all();
+
+		if(params.key === 'wfhyhItyukVAcRgEh8SmQg9CpgG'){
+
+			var fetch = Feeds.find();
+
+
+			fetch.exec(function(err, feeds){
+				if(err) res.json(err);
+				if(feeds){
+
+					async.each(feeds, function(feed, callback){
+						parser(feed.feed, function(err, rss) {
+							if(err){
+								callback(err);
+							}
+							if(rss && (feed.feedUpdated != rss[0].pubDate)){
+
+								if(rss){
+									utility.getEpisodes(rss, created.id, function(err, done){
+										if(err){
+											callback(err);
+										}
+										if(done){
+											callback();
+										}
+									});
+								}
+
+							} else {
+								callback();
+							}
+
+						});
+
+					}, function(err){
+						if(err){
+							res.json(err);
+						} else {
+							res.ok();
+						}
+					});
+				}
+
+			});
+
+		} else {
+
+			res.json('disallowed');
+
+		}
+
+
 	},
 
 	index: function(req, res){
