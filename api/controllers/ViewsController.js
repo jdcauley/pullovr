@@ -21,7 +21,7 @@ module.exports = {
 
 		var params = req.params.all();
 
-		Feeds.findOne({id: params.id}).populate('episodes', {limit: 12, sort: 'createdAt DSC' }).exec(function(err, feed){
+		Feeds.findOne({id: params.id}).populate('episodes', {limit: 12, sort: 'createdAt DESC' }).exec(function(err, feed){
 
 			res.view({feed: feed});
 
