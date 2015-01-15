@@ -74,7 +74,7 @@ module.exports = {
 							if(rss && (feed.feedUpdated != rss[0].pubDate)){
 								console.log('in rss');
 								if(rss){
-									utility.getEpisodes(rss, created.id, function(err, done){
+									utility.getEpisodes(rss, feed.id, function(err, done){
 										if(err){
 											console.log(err);
 											callback(err);
