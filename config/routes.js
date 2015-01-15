@@ -40,10 +40,6 @@ module.exports.routes = {
     controller: 'ViewsController',
     action: 'show'
   },
-	'get /feed/:id': {
-		controller: 'EpisodesController',
-		action: 'getFeed'
-	},
 	'post /search': {
 		controller: 'ViewsController',
 		action: 'search'

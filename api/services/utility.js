@@ -7,7 +7,7 @@ module.exports = {
 
       var urlTitle = episode.title
       var urlTitle = urlTitle.replace(/ /g,"-");
-
+        console.log(episode.enclosures[0].url);
         Episodes.findOne({primaryEnclosureUrl: episode.enclosures[0].url}, function(err, found){
           if(err){
             callback();
@@ -15,6 +15,7 @@ module.exports = {
           if(found){
             callback();
           } else {
+            console.log('creating episode ' + episode.title);
             var theEnclosure = episode.enclosures[0].url;
             var fileType = mime.lookup(theEnclosure);
             var minusExt = theEnclosure.substr(0, theEnclosure.lastIndexOf('.')) || theEnclosure;
