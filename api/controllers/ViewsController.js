@@ -21,7 +21,7 @@ module.exports = {
 
 		var params = req.params.all();
 
-		Feeds.findOne({id: params.id}).populate('episodes', {limit: 12, sort: 'created DESC' }).exec(function(err, feed){
+		Feeds.findOne({id: params.id}).populate('episodes', {limit: 12, sort: 'createdAt DSC' }).exec(function(err, feed){
 
 			res.view({feed: feed});
 
@@ -73,7 +73,7 @@ module.exports = {
 			if(feeds.length < 1){
 
 				parser(params.search, function(err, rss) {
-
+rss.reverse();
 					if (err) {
 						res.view({
 							err: err,

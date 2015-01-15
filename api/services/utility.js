@@ -10,14 +10,11 @@ module.exports = {
 
         Episodes.findOneByPrimaryEnclosureUrl(episode.enclosures[0].url, function(err, found){
           if(err){
-            console.log(err);
             callback();
           }
           if(found){
-            console.log(episode.enclosures[0].url + ' ' found.id);
             callback();
           } else {
-            console.log('creating episode ' + episode.title);
             var theEnclosure = episode.enclosures[0].url;
             var fileType = mime.lookup(theEnclosure);
             var minusExt = theEnclosure.substr(0, theEnclosure.lastIndexOf('.')) || theEnclosure;
