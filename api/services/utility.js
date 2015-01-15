@@ -9,8 +9,6 @@ module.exports = {
       var urlTitle = episode.title
       var urlTitle = urlTitle.replace(/ /g,"-");
 
-        if(episode.enclosures[0].url){
-
           Episodes.findOneByPrimaryEnclosureUrl(episode.enclosures[0].url, function(err, found){
             if(err){
               callback();
@@ -55,10 +53,6 @@ module.exports = {
               });
             }
           });
-
-        } else {
-          callback();
-        }
 
     }, function(err){
       if(err) cb(err);
