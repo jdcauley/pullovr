@@ -65,9 +65,10 @@ module.exports = {
 				if(feeds){
 
 					async.each(feeds, function(feed, callback){
+
 						parser(feed.feed, function(err, rss) {
 							if(err){
-								callback(err);
+								callback();
 							}
 							if(rss && (feed.feedUpdated != rss[0].pubDate)){
 
