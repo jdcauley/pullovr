@@ -15,7 +15,7 @@ module.exports = {
 
 		var episodesQuery = Episodes.find();
 
-		episodesQuery.sort('created DESC');
+		episodesQuery.sort('feedUpdated DESC');
 
 		if(params.offset){
 			episodesQuery.skip(params.offset);

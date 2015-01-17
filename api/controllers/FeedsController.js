@@ -61,30 +61,19 @@ module.exports = {
 
 
 			fetch.exec(function(err, feeds){
-				if(err) res.json(err);
+				if(err){
+					res.json(err);
+				}
 				if(feeds){
+					async.each(feeds, function(feed, asyncCB){
 
-					async.each(feeds, function(feed, callback){
-						console.log(feed);
-						parser(feed.feed, function(err, rss) {
+						utility.feedParser(feed, function(err, done){
 							if(err){
 								console.log(err);
-								callback();
+								asyncCB();
 							}
-							if(rss && (feed.feedUpdated != rss[0].pubDate)){
-
-									utility.getEpisodes(rss, feed.id, function(err, done){
-										if(err){
-											callback(err);
-										}
-										if(done){
-											callback();
-										}
-									});
-
-
-							} else {
-								callback();
+							if(done){
+								asyncCB();
 							}
 
 						});
