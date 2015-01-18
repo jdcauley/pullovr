@@ -66,6 +66,8 @@ module.exports = {
 			]
 		});
 
+		searchFeeds.populate('episodes', {limit: 1, sort: 'createdAt DESC' });
+
 		searchFeeds.exec(function(err, feeds){
 			if(err){
 				res.json(err);

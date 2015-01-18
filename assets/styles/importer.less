@@ -25,16 +25,12 @@
 //
 // @import 'styleguide.less';
 // @import 'pages/login.less';
-@import 'normalize.less';
-@import 'playlist.less';
+// @import 'normalize.less';
+@import '../dependencies/bootstrap/less/bootstrap.less';
+@import '_variables.less';
+// @import 'playlist.less';
 //
 // etc.
-@font-family: 'Helvetica Neue', Helvetica, sans-serif;
-
-@white: #fff;
-@black: #000;
-@light-gray: #f6f6f6;
-@blue: #0048ff;
 
 body{
   font-family: @font-family;
@@ -127,7 +123,9 @@ input{
     background: darken(@light-gray, 10%);
   }
 }
-
+.feed-meta{
+  padding: 25px;
+}
 .podcast-player{
   height: 250px;
   width: 250px;
@@ -137,11 +135,39 @@ input{
   display: inline-block;
   width: 60%;
 }
-.feed-meta{
-  margin-left: 80px;
-  margin-right: 80px;
+.feed-title{
+  span{
+    padding-left: 12px;
+    font-size: 14px;
+  }
 }
-.playlist-container{
-  display: inline-block;
-  width: 30%;
+.feed-description{
+  font-size: 18px;
+}
+.feed-content{
+  h4{
+    font-size: 16px;
+  }
+  padding-bottom: 15px;
+  margin-top: 30px;
+  border-bottom: 1px solid @brand-primary;
+
+}
+.search-meta{
+  padding-top: 0;
+  .feed-title{
+    margin-top: 0;
+  }
+}
+.play-icon{
+  display: none;
+  padding-right: 12px;
+}
+.currentTrack{
+  .play-icon{
+    display: inline-block;
+  }
+}
+.search-item{
+  margin-top: 20px;
 }

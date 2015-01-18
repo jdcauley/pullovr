@@ -1,30 +1,43 @@
- <div class="feed-info-container">
-    <div class="feed-meta">
-      <h4><%= feed.title %></h4>
-      <p><%= feed.description %></p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-5">
+      <video id="audio-playlist" controls poster="<%= feed.poster %>" class="video-js vjs-default-skin">
+        <source src="<%= feed.episodes[0].primaryEnclosureUrl %>" type="<%= feed.episodes[0].fileType %>">
+      </video>
     </div>
-  
+    <div class="col-sm-7">
+      <div class="feed-meta">
+        <h2 class="feed-title"><%= feed.title %><span><a href="#disqus_thread"></a><span></h4>
+        <p class="feed-description"><%= feed.description %></p>
+      </div>
+    </div>
   </div>
-  
-  <div class="playlist-container">       
-  <audio id="audio-playlist" controls  
-    poster="<%= feed.poster %>" class="video-js vjs-default-skin">
-    <source src="<%= feed.episodes[0].primaryEnclosureUrl %>" type="audio/mpeg">
-      </audio>
-      <div class="jp-type-playlist" style=''>
-      <div id="audio-playlist-vjs-playlist" class='vjs-playlist jp-playlist' style='width:100%'>
-        <ul>
+
+  <div class="row">
+    <div class="jp-type-playlist" style=''>
+      <div id="audio-playlist-vjs-playlist" class="vjs-playlist jp-playlist">
         <% var episodes = feed.episodes %>
         <% for(var i = 0; i < episodes.length; i++){ %>
-       
-          <li>
-            <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-src="<%= episodes[i].extFree %>"> <%= episodes[i].title %> </a>
-          </li>
+          <div class="col-sm-12 feed-content">
+            <h3 class="episode-title">
+              <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-src="<%= episodes[i].extFree %>">
+                <span class="glyphicon glyphicon-play play-icon"></span><%= episodes[i].title %>
+              </a>
+            </h3>
+            <% if(episodes[i].content){ %>
+              <%- episodes[i].content %>
+            <% } %>
+          </div>
+        <% } %>
 
-        <% } %>     
-        </ul>
       </div>
-      </div>
-  </div>
+    </div>
 
-        
+    <div class="row">
+      <div class="col-sm-12">
+
+        <div id="disqus_thread"></div>
+
+    </div>
+</div>
