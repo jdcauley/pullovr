@@ -58,17 +58,13 @@ input{
 	width: 100%;
 }
 .card{
-	flex-grow: 1;
-  align-self: center;
-	max-width: 144px;
-	max-height: 144px;
-  padding: 20px;
-	margin-bottom: 20px;
-  background: @light-gray;
+  // background: @black;
   color: @black;
   text-decoration: none;
   &:hover{
-    background: darken(@light-gray, 10%);
+    img{
+      opacity: .5;
+    }
   }
 }
 
@@ -124,7 +120,7 @@ input{
   }
 }
 .feed-meta{
-  padding: 25px;
+  padding: 0 25px 25px;
 }
 .podcast-player{
   height: 250px;
@@ -136,6 +132,7 @@ input{
   width: 60%;
 }
 .feed-title{
+  margin-top: 0;
   span{
     padding-left: 12px;
     font-size: 14px;
@@ -153,11 +150,11 @@ input{
   border-bottom: 1px solid @brand-primary;
 
 }
-.search-meta{
-  padding-top: 0;
-  .feed-title{
-    margin-top: 0;
-  }
+.episode-title{
+  font-size: 18px;
+}
+.episode-pubdate{
+  font-size: 14px;
 }
 .play-icon{
   display: none;

@@ -1,10 +1,12 @@
 <div class="container show-container">
+  <div class="row">
 <%if(feeds){%>
 <% feeds.forEach(function(feed){ %>
-  <a class="card" href="/podcast/<%= feed.id %>">
-    <img class="poster" src="<%= feed.poster %>" alt="<%= feed.title %>">
+  <a class="col-sm-2 card" href="/podcast/<%= feed.id %>">
+    <img class="poster img-responsive" src="<%= feed.poster %>" alt="<%= feed.title %>">
   </a>
 
 <% }) %>
 <% } %>
+  </div>
 </div>

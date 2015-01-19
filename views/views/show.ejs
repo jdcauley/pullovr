@@ -23,6 +23,7 @@
             <h3 class="episode-title">
               <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-src="<%= episodes[i].extFree %>">
                 <span class="glyphicon glyphicon-play play-icon"></span><%= episodes[i].title %>
+                <span class="episode-pubdate"> - <%= episodes[i].pubDate %></span>
               </a>
             </h3>
             <% if(episodes[i].content){ %>
