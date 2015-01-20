@@ -5,13 +5,13 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-5">
-      <video id="audio-playlist" controls poster="<%= feeds[0].poster %>" class="video-js vjs-default-skin">
+      <video id="podcast" controls poster="<%= feeds[0].poster %>" class="video-js vjs-default-skin">
         <source src="<%= feeds[0].episodes[0].primaryEnclosureUrl %>" type="<%= feeds[0].episodes[0].fileType %>">
       </video>
     </div>
   </div>
   <div class="jp-type-playlist">
-    <div id="audio-playlist-vjs-playlist" class="vjs-playlist jp-playlist">
+    <div id="podcast-vjs-playlist" class="vjs-playlist jp-playlist">
   <% for(var i = 0; i < feeds.length; i++){ %>
     <div class="row search-item">
       <div class="col-sm-2">

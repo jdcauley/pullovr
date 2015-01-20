@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-5">
-      <video id="audio-playlist" controls poster="<%= feed.poster %>" class="video-js vjs-default-skin">
+      <video id="podcast" controls poster="<%= feed.poster %>" class="video-js vjs-default-skin" preload="auto">
         <source src="<%= feed.episodes[0].primaryEnclosureUrl %>" type="<%= feed.episodes[0].fileType %>">
       </video>
     </div>
@@ -16,7 +16,7 @@
 
   <div class="row">
     <div class="jp-type-playlist" style=''>
-      <div id="audio-playlist-vjs-playlist" class="vjs-playlist jp-playlist">
+      <div id="podcast-vjs-playlist" class="vjs-playlist jp-playlist">
         <% var episodes = feed.episodes %>
         <% for(var i = 0; i < episodes.length; i++){ %>
           <div class="col-sm-12 feed-content">
