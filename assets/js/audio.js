@@ -2,7 +2,6 @@
 
 //note in the data-src's above that there are no file extensions, e.g., .m4v
 
-
 videojs("#podcast", {"height":"auto", "width":"auto","customControlsOnMobile": true}).ready(function(event){
     var myPlayer=this;
 
@@ -11,11 +10,11 @@ videojs("#podcast", {"height":"auto", "width":"auto","customControlsOnMobile": t
     'continuous': true,
     'setTrack': 0
     });
-    myPlayer.on('playing', function(){
-        var poster=document.getElementsByClassName("vjs-poster")[1];
-        poster.style.display="block";
-
-    });
+    // myPlayer.on('playing', function(){
+    //     var poster=document.getElementsByClassName("vjs-poster")[1];
+    //     poster.style.display="block";
+    //
+    // });
 
     //if(typeof myPlayer.L!="undefined") myPlayer.id_=myPlayer.L;
 

@@ -36,11 +36,21 @@
   </head>
 
   <body>
-		<h1 class="brand"><a href="/">Pullovr</a></h1>
-		<form class="feed-form" action="/search" method="post">
-		  <input class="input" type="text" name="search" value="" placeholder="Find a Podcast or add a feed">
-		  <input class="input submit" type="submit" value="Submit">
-		</form>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+		      <h1 class="brand"><a href="/">Pullovr</a></h1>
+		      <form class="feed-form" action="/search" method="post">
+            <div class="input-group">
+              <input class="input" type="text" name="search" class="form-control" value="" placeholder="Find a Podcast or add a feed">
+              <span class="input-group-btn">
+                <input class="btn btn-default submit" type="submit" value="Submit">
+              </span>
+            </div><!-- /input-group -->
+		      </form>
+        </div>
+      </div>
+    </div>
     <%- body %>
 
 
@@ -67,7 +77,7 @@
     -->
 
     <!--TEMPLATES-->
-    
+
     <!--TEMPLATES END-->
 
 
@@ -94,8 +104,11 @@
 
     -->
     <script src="//vjs.zencdn.net/4.11/video.js"></script>
-    <script src="/js/videojs.playlist.js"></script>
+    <script src="/js/player.js"></script>
     <script src="/js/audio.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="/js/style.js"></script>
+
     <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = 'pullovr'; // required: replace example with your forum shortname

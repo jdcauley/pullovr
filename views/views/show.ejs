@@ -1,6 +1,6 @@
 
 <div class="container">
-  <div class="row">
+  <div class="row player-row">
     <div class="col-sm-5">
       <video id="podcast" controls poster="<%= feed.poster %>" class="video-js vjs-default-skin" preload="auto">
         <source src="<%= feed.episodes[0].primaryEnclosureUrl %>" type="<%= feed.episodes[0].fileType %>">
@@ -20,11 +20,11 @@
         <% var episodes = feed.episodes %>
         <% for(var i = 0; i < episodes.length; i++){ %>
           <div class="col-sm-12 feed-content">
-            <h3 class="episode-title">
-              <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-src="<%= episodes[i].extFree %>">
-                <span class="glyphicon glyphicon-play play-icon"></span><%= episodes[i].title %>
-                <span class="episode-pubdate"> - <%= episodes[i].pubDate %></span>
+
+              <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-poster="<%= feed.poster %>" data-src="<%= episodes[i].primaryEnclosureUrl %>" data-type="<%= episodes[i].fileType %>">
+                <h3 class="episode-title"><span class="glyphicon glyphicon-play play-icon"></span><%= episodes[i].title %></h3>
               </a>
+              <time class="episode-pubdate"> - <%= episodes[i].pubDate %></time>
             </h3>
             <% if(episodes[i].content){ %>
               <%- episodes[i].content %>

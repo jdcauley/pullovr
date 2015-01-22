@@ -1,13 +1,12 @@
-<h4>Results for: <%= results %></h4>
-
-
 <%if(feeds){%>
 <div class="container">
-  <div class="row">
+  <div class="row player-row">
     <div class="col-sm-5">
       <video id="podcast" controls poster="<%= feeds[0].poster %>" class="video-js vjs-default-skin">
-        <source src="<%= feeds[0].episodes[0].primaryEnclosureUrl %>" type="<%= feeds[0].episodes[0].fileType %>">
       </video>
+    </div>
+    <div class="col-sm-7">
+      <h4 class="results">Results for: <%= results %></h4>
     </div>
   </div>
   <div class="jp-type-playlist">
@@ -26,7 +25,7 @@
             <span>
           </h4>
           <p class="feed-description"><%= feeds[i].description %></p>
-          <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-src="<%= feeds[i].episodes[0].extFree %>" data-poster="<%= feeds[i].poster %>">
+          <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-src="<%= feeds[i].episodes[0].primaryEnclosureUrl %>" data-poster="<%= feeds[i].poster %>" data-type="<%= feeds[i].episodes[0].fileType %>">
             <span class="glyphicon glyphicon-play play-icon"></span><%= feeds[i].episodes[0].title %>
           </a>
         </div>

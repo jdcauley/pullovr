@@ -46,7 +46,7 @@ module.exports = {
 			defaultsTo: null
 		},
 		feedUpdated: {
-			type: 'string',
+			type: 'datetime',
 			defaultsTo: null
 		},
 		categories: {
