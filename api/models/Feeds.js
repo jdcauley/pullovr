@@ -53,6 +53,11 @@ module.exports = {
 			type: 'json',
 			defaultsTo: null
 		},
+    visits: {
+      type: 'integer',
+      defaultsTo: 1
+    }
+
 
   }
 };

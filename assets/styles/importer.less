@@ -26,8 +26,9 @@
 // @import 'styleguide.less';
 // @import 'pages/login.less';
 // @import 'normalize.less';
-@import '../dependencies/bootstrap/less/bootstrap.less';
+@import 'bootstrap.less';
 @import '_variables.less';
+@import 'videojs.less';
 // @import 'playlist.less';
 //
 // etc.
@@ -43,19 +44,11 @@ input{
   }
 }
 .brand{
-	margin-left: 25px;
 	a{
 		font-weight: 200;
 		color: @blue;
 		text-decoration: none;
 	}
-}
-.show-container{
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	width: 100%;
 }
 .card{
   // background: @black;
@@ -69,59 +62,65 @@ input{
   }
 }
 
-
+h1, h2, h3, h4, h5, h6{
+  margin-top: 0;
+  margin-bottom: 15px;
+}
 .poster{
 	display: block;
-  max-width: 144px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .feed-form{
-  height: auto;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 40px;
-  background: @light-gray;
+  margin-bottom: 30px;
   border-bottom: 3px solid @blue;
 }
 .input{
   display: inline-block;
-  padding: 22px 2%;
-  margin-right: 0;
-  margin-left: 0;
+  padding: 22px 0;
+  width: 72%;
   border: none;
-  font-size: 18px;
-  width: 68%;
+  border-radius: 0;
+  font-size: 20px;
   background: @white;
 }
+.disqus-container{
+  margin-top: 30px;
+}
 .submit{
-  display: inline-block;
-  width: 27.7%;
-  padding: 10px 1%;
-  margin: 0 -3px;
-  color: @black;
-  text-align: center;
-  font-size: 16px;
-  height: 64px;
+  height: 72px;
+  width: 28%;
+  padding: 0;
+  margin: 0;
+  float: right;
   background: @light-gray;
   border: none;
   &:active{
     color: @black;
+    border-radius: 0;
     background: darken(@light-gray, 10%);
   }
   &:hover{
     color: @black;
+    border-radius: 0;
     background: darken(@light-gray, 10%);
   }
   &:focus{
     color: @black;
+    border-radius: 0;
     background: darken(@light-gray, 10%);
   }
+  @media (min-width: @screen-sm-min) {
+    width: 200px;
+  }
 }
+
 .feed-meta{
-  padding: 0 25px 25px;
+  margin-top: 30px;
+  @media (min-width: @screen-sm-min) {
+    margin-top: 0;
+  }
 }
 .results{
   padding-left: 20px;
@@ -176,4 +175,29 @@ input{
 }
 .search-item{
   margin-top: 20px;
+}
+.search-submit{
+
+  margin: 0;
+}
+.search-field{
+  width: 100%;
+}
+
+.footer{
+  margin-top: 30px;
+  padding: 30px 0;
+  color: @white;
+  background: @brand-primary;
+  a{
+    color: @white;
+    text-align: right;
+    text-decoration: underline;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+}
+.footer-nav{
+  float: right;
 }

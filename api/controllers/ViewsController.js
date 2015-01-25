@@ -11,12 +11,82 @@ module.exports = {
 
 	index: function(req, res){
 
-		Feeds.find().limit(24).exec(function(err, feeds){
-			res.view({feeds: feeds});
+		var feedsQuery = Feeds.find();
+		feedsQuery.sort('visits DESC');
+		feedsQuery.limit(24);
+
+		var techFeeds = Feeds.find({
+			or : [
+				{
+					description: {
+						contains: 'technology'
+					}
+				},
+				{
+					keywords: {
+						contains: 'technology'
+					}
+				}
+			]
+		});
+		techFeeds.sort('visits DESC');
+		techFeeds.limit(6);
+
+		var newsFeeds = Feeds.find({
+			or : [
+				{
+					description: {
+						contains: 'news',
+					}
+				},
+				{
+					keywords: {
+						contains: 'news',
+					}
+				}
+			]
+		});
+		newsFeeds.sort('visits DESC');
+		newsFeeds.limit(6);
+
+		var movieFeeds = Feeds.find({
+			or : [
+				{
+					description: {
+						contains: 'movie',
+					}
+				},
+				{
+					keywords: {
+						contains: 'movie',
+					}
+				}
+			]
+		});
+		movieFeeds.sort('visits DESC');
+		movieFeeds.limit(6);
+
+
+		feedsQuery.exec(function(err, feeds){
+			techFeeds.exec(function(err, tfeeds){
+				movieFeeds.exec(function(err, mfeeds){
+					newsFeeds.exec(function(err, nfeeds){
+
+						res.view({data:
+							{
+								popular: feeds,
+								tech: tfeeds,
+								movie: mfeeds,
+								news: nfeeds
+							}
+						});
+
+					});
+				});
+			});
 		});
 
 	},
-
 	show: function(req, res){
 
 		var params = req.params.all();
@@ -24,6 +94,18 @@ module.exports = {
 		Feeds.findOne({id: params.id}).populate('episodes', {limit: 12, sort: 'createdAt DESC' }).exec(function(err, feed){
 
 			res.view({feed: feed});
+
+			if(feed.visits){
+				var feedVisits = feed.visits + 1;
+			} else {
+				var feedVisits = 1;
+			}
+
+			Feeds.update(feed.id, {
+				visits: feedVisits
+			}, function(err){
+				if(err) sails.log.error(err);
+			});
 
 		});
 

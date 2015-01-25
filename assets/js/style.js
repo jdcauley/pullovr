@@ -3,7 +3,11 @@
   function styleDate(date){
 
     var formattedDate = moment(date.innerText).format('MMMM Do, YYYY h:mm a');
-    date.innerText = formattedDate;
+    if(formattedDate == 'Invalid date'){
+      date.innerText = '';
+    } else {
+      date.innerText = formattedDate;
+    }
   }
 
   var dates = document.getElementsByClassName('episode-pubdate');

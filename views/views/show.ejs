@@ -20,12 +20,10 @@
         <% var episodes = feed.episodes %>
         <% for(var i = 0; i < episodes.length; i++){ %>
           <div class="col-sm-12 feed-content">
-
-              <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-poster="<%= feed.poster %>" data-src="<%= episodes[i].primaryEnclosureUrl %>" data-type="<%= episodes[i].fileType %>">
-                <h3 class="episode-title"><span class="glyphicon glyphicon-play play-icon"></span><%= episodes[i].title %></h3>
-              </a>
-              <time class="episode-pubdate"> - <%= episodes[i].pubDate %></time>
-            </h3>
+            <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-poster="<%= feed.poster %>" data-src="<%= episodes[i].primaryEnclosureUrl %>" data-type="<%= episodes[i].fileType %>">
+              <h3 class="episode-title"><span class="glyphicon glyphicon-play play-icon"></span><%= episodes[i].title %></h3>
+            </a>
+            <time class="episode-pubdate"> - <%= episodes[i].pubDate %></time>
             <% if(episodes[i].content){ %>
               <%- episodes[i].content %>
             <% } %>
@@ -34,11 +32,10 @@
 
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-sm-12">
-
-        <div id="disqus_thread"></div>
-
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="disqus_thread" class="disqus-container"></div>
     </div>
+  </div>
 </div>

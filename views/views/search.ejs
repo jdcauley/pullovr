@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row player-row">
     <div class="col-sm-5">
-      <video id="podcast" controls poster="<%= feeds[0].poster %>" class="video-js vjs-default-skin">
+      <video id="podcast" controls <% if (feeds[0].poster){ %>poster="<%= feeds[0].poster %>"<% } %> class="video-js vjs-default-skin">
       </video>
     </div>
     <div class="col-sm-7">
@@ -13,10 +13,13 @@
     <div id="podcast-vjs-playlist" class="vjs-playlist jp-playlist">
   <% for(var i = 0; i < feeds.length; i++){ %>
     <div class="row search-item">
-      <div class="col-sm-2">
-        <img class="img-responsive" src="<%= feeds[i].poster %>" alt="<%= feeds[i].title %>">
+      <div class="col-xs-4 col-sm-3 col-md-2">
+        <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-src="<%= feeds[i].episodes[0].primaryEnclosureUrl %>" data-poster="<%= feeds[i].poster %>" data-type="<%= feeds[i].episodes[0].fileType %>">
+          <img class="img-responsive" src="<%= feeds[i].poster %>" alt="<%= feeds[i].title %>">
+          <span class="glyphicon glyphicon-play play-icon"></span><%= feeds[i].episodes[0].title %>
+        </a>
       </div>
-      <div class="col-sm-10">
+      <div class="col-xs-8 col-sm-9 col-md-10">
         <div class="feed-meta search-meta">
           <h2 class="feed-title">
             <a title="<%= feeds[i].title %>" href="/podcast/<%= feeds[i].id %>"><%= feeds[i].title %></a>
@@ -25,9 +28,6 @@
             <span>
           </h4>
           <p class="feed-description"><%= feeds[i].description %></p>
-          <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-src="<%= feeds[i].episodes[0].primaryEnclosureUrl %>" data-poster="<%= feeds[i].poster %>" data-type="<%= feeds[i].episodes[0].fileType %>">
-            <span class="glyphicon glyphicon-play play-icon"></span><%= feeds[i].episodes[0].title %>
-          </a>
         </div>
       </div>
     </div>

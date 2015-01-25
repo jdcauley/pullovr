@@ -2,7 +2,7 @@
 
 //note in the data-src's above that there are no file extensions, e.g., .m4v
 
-videojs("#podcast", {"height":"auto", "width":"auto","customControlsOnMobile": true}).ready(function(event){
+videojs("#podcast", {"height":"auto", "width":"auto","customControlsOnMobile": false}).ready(function(event){
     var myPlayer=this;
 
     var playlist=myPlayer.playlist({
@@ -19,7 +19,9 @@ videojs("#podcast", {"height":"auto", "width":"auto","customControlsOnMobile": t
     //if(typeof myPlayer.L!="undefined") myPlayer.id_=myPlayer.L;
 
     function resizeVideoJS(){
+      console.log(document.getElementById(myPlayer.el().id).parentElement);
       var width = document.getElementById(myPlayer.el().id).parentElement.offsetWidth;
+      var width = width - 30;
       var aspectRatio=8/12;
       myPlayer.width(width).height( width * aspectRatio);
     }
