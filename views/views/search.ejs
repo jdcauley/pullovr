@@ -1,11 +1,13 @@
 <%if(feeds){%>
 <div class="container">
+  <div class="row">
+    <div class="col-sm-9">
   <div class="row player-row">
-    <div class="col-sm-5">
-      <video id="podcast" controls <% if (feeds[0].poster){ %>poster="<%= feeds[0].poster %>"<% } %> class="video-js vjs-default-skin">
+    <div class="col-sm-7">
+      <video id="podcast" <% if (feeds[0].poster){ %>poster="<%= feeds[0].poster %>"<% } %> controls class="video-js vjs-default-skin">
       </video>
     </div>
-    <div class="col-sm-7">
+    <div class="col-sm-5">
       <h4 class="results">Results for: <%= results %></h4>
     </div>
   </div>
@@ -13,13 +15,13 @@
     <div id="podcast-vjs-playlist" class="vjs-playlist jp-playlist">
   <% for(var i = 0; i < feeds.length; i++){ %>
     <div class="row search-item">
-      <div class="col-xs-4 col-sm-3 col-md-2">
+      <div class="col-xs-5 col-sm-4 col-md-3">
         <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-src="<%= feeds[i].episodes[0].primaryEnclosureUrl %>" data-poster="<%= feeds[i].poster %>" data-type="<%= feeds[i].episodes[0].fileType %>">
           <img class="img-responsive" src="<%= feeds[i].poster %>" alt="<%= feeds[i].title %>">
           <span class="glyphicon glyphicon-play play-icon"></span><%= feeds[i].episodes[0].title %>
         </a>
       </div>
-      <div class="col-xs-8 col-sm-9 col-md-10">
+      <div class="col-xs-7 col-sm-8 col-md-9">
         <div class="feed-meta search-meta">
           <h2 class="feed-title">
             <a title="<%= feeds[i].title %>" href="/podcast/<%= feeds[i].id %>"><%= feeds[i].title %></a>
@@ -32,6 +34,21 @@
       </div>
     </div>
   <% } %>
+</div>
+</div>
+</div>
+<div class="col-sm-3">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- responsive ad slot -->
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-0689021357153120"
+data-ad-slot="4178431797"
+data-ad-format="auto">
+</ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 </div>
 </div>
 </div>

@@ -37,11 +37,15 @@
     else;
 
     var trackSelect = function(track){
+      var corElement = document.getElementById('podcast');
+      var playerView = document.getElementById('podcast_html5_api');
 
       var src = track.getAttribute('data-src');
       var fileType = track.getAttribute('data-type');
       var poster = track.getAttribute('data-poster');
       console.log(poster);
+      corElement.setAttribute('poster', poster);
+      playerView.setAttribute('poster', poster);
       index = parseInt(track.getAttribute('data-index')) || index;
 
       player.src({ type: fileType, src: src, poster: poster });

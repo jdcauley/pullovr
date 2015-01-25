@@ -19,7 +19,6 @@ videojs("#podcast", {"height":"auto", "width":"auto","customControlsOnMobile": f
     //if(typeof myPlayer.L!="undefined") myPlayer.id_=myPlayer.L;
 
     function resizeVideoJS(){
-      console.log(document.getElementById(myPlayer.el().id).parentElement);
       var width = document.getElementById(myPlayer.el().id).parentElement.offsetWidth;
       var width = width - 30;
       var aspectRatio=8/12;
