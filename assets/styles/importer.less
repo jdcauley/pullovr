@@ -44,6 +44,7 @@ input{
   }
 }
 .brand{
+  padding: 15px 0;
 	a{
 		font-weight: 200;
 		color: @blue;
@@ -52,11 +53,14 @@ input{
 }
 .card{
   // background: @black;
+  min-height: 132px;
   padding-bottom: 30px;
   color: @black;
   text-decoration: none;
   &:hover{
     img{
+      height: 100%;
+      width: 100%;
       opacity: .5;
     }
   }
@@ -200,4 +204,9 @@ h1, h2, h3, h4, h5, h6{
 }
 .footer-nav{
   float: right;
+}
+.adsbygoogle{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
