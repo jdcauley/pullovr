@@ -59,17 +59,18 @@ module.exports = {
 
 			var fetch = Feeds.find();
 
+			res.ok();
 
 			fetch.exec(function(err, feeds){
 				if(err){
-					res.json(err);
+					sails.log.error(err);
 				}
 				if(feeds){
 					async.each(feeds, function(feed, asyncCB){
 
 						utility.feedParser(feed, function(err, done){
 							if(err){
-								console.log(err);
+								sails.log.error(err);
 								asyncCB();
 							}
 							if(done){
@@ -80,14 +81,18 @@ module.exports = {
 
 					}, function(err){
 						if(err){
-							res.json(err);
-						} else {
-							res.ok();
+							sails.log.error(err);
 						}
 					});
 				}
 
 			});
+
+		} else {
+
+			res.json('disallowed');
+
+		}
 
 		} else {
 
