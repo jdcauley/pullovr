@@ -26,7 +26,7 @@
       <div class="row">
         <%if(news){%>
           <% news.forEach(function(feed){ %>
-            <a class="col-xs-4 col-sm-6 card" href="/podcast/<%= feed.id %>">
+            <a class="col-xs-4 col-sm-6" href="/podcast/<%= feed.id %>">
               <img class="poster img-responsive" src="<%= feed.poster %>" alt="<%= feed.title %>">
             </a>
             <% }) %>
@@ -39,7 +39,7 @@
           <div class="row">
             <%if(tech){%>
               <% tech.forEach(function(feed){ %>
-                <a class="col-xs-4 col-sm-6 card" href="/podcast/<%= feed.id %>">
+                <a class="col-xs-4 col-sm-6" href="/podcast/<%= feed.id %>">
                   <img class="poster img-responsive" src="<%= feed.poster %>" alt="<%= feed.title %>">
                 </a>
                 <% }) %>
@@ -52,7 +52,7 @@
               <div class="row">
                 <%if(movies){%>
                   <% movies.forEach(function(feed){ %>
-                    <a class="col-xs-4 col-sm-6 card" href="/podcast/<%= feed.id %>">
+                    <a class="col-xs-4 col-sm-6" href="/podcast/<%= feed.id %>">
                       <img class="poster img-responsive" src="<%= feed.poster %>" alt="<%= feed.title %>">
                     </a>
                     <% }) %>
