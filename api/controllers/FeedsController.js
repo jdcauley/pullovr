@@ -94,12 +94,6 @@ module.exports = {
 
 		}
 
-		} else {
-
-			res.json('disallowed');
-
-		}
-
 
 	},
 
