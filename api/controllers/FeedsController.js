@@ -97,34 +97,34 @@ module.exports = {
 
 	},
 
-	// index: function(req, res){
-	//
-	// 	var params = req.params.all();
-	//
-	// 	var feedsQuery = Feeds.find();
-	// 	feedsQuery.populate('episodes');
-	//
-	// 	if(params.offset){
-	// 		feedsQuery.skip(params.offset);
-	// 	} else {
-	// 		feedsQuery.skip(0);
-	// 	}
-	// 	if(params.count){
-	// 		feedsQuery.limit(params.count);
-	// 	} else {
-	// 		feedsQuery.limit(12);
-	// 	}
-	//
-	// 	feedsQuery.exec(function(err, feeds){
-	// 		if(err){
-	// 			res.json(err);
-	// 		}
-	// 		if(feeds){
-	// 			res.json({
-	// 				feeds: feeds
-	// 			});
-	// 		}
-	// 	});
-	// }
+	index: function(req, res){
+
+		var params = req.params.all();
+
+		var feedsQuery = Feeds.find();
+		feedsQuery.populate('episodes');
+
+		if(params.offset){
+			feedsQuery.skip(params.offset);
+		} else {
+			feedsQuery.skip(0);
+		}
+		if(params.count){
+			feedsQuery.limit(params.count);
+		} else {
+			feedsQuery.limit(12);
+		}
+
+		feedsQuery.exec(function(err, feeds){
+			if(err){
+				res.json(err);
+			}
+			if(feeds){
+				res.json({
+					feeds: feeds
+				});
+			}
+		});
+	}
 
 };

@@ -47,6 +47,13 @@ module.exports.routes = {
   'get /feeds/fetch/:key': {
     controller: 'FeedsController',
     action: 'fetch'
+  },
+  'get /api/feeds': {
+    controller: 'FeedsController',
+    action: 'index',
+    cors: {
+      origin: 'http://localhost:4200'
+    }
   }
 
   /***************************************************************************
