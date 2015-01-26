@@ -68,24 +68,66 @@ module.exports = {
 
 
 		feedsQuery.exec(function(err, feeds){
-			techFeeds.exec(function(err, tfeeds){
-				movieFeeds.exec(function(err, mfeeds){
-					newsFeeds.exec(function(err, nfeeds){
-
+			if(err){
+				sails.log.error(err);
+				req.flash("message", '<h3 class="error">We\'re sorry, there was an error. Please try again.</h3>');
+				res.redirect('/');
+			}
+			if(feeds){
+				techFeeds.exec(function(err, tfeeds){
+					if(err){
+						sails.log.error(err);
+						req.flash("message", '<h3 class="error">We\'re sorry, there was an error. Please try again.</h3>');
 						res.view({data:
 							{
 								popular: feeds,
-								tech: tfeeds,
-								movie: mfeeds,
-								news: nfeeds
 							}
 						});
+					}
+					if(tfeeds){
+						movieFeeds.exec(function(err, mfeeds){
+							if(err){
+								sails.log.error(err);
+								req.flash("message", '<h3 class="error">We\'re sorry, there was an error. Please try again.</h3>');
+								res.view({data:
+									{
+										popular: feeds,
+										tech: tfeeds,
+									}
+								});
+							}
+							if(mfeeds){
 
-					});
+								newsFeeds.exec(function(err, nfeeds){
+									if(err){
+										sails.log.error(err);
+										req.flash("message", '<h3 class="error">We\'re sorry, there was an error. Please try again.</h3>');
+										res.view({data:
+											{
+												popular: feeds,
+												tech: tfeeds,
+												movie: mfeeds
+											}
+										});
+									}
+									if(nfeeds){
+										req.flash("message", '<h3 class="error">We\'re sorry, there was an error. Please try again.</h3>');
+										res.view({data:
+											{
+												popular: feeds,
+												tech: tfeeds,
+												movie: mfeeds,
+												news: nfeeds
+											}
+										});
+									}
+								});
+							}
+						});
+					}
 				});
-			});
+			}
 		});
-
 	},
 	show: function(req, res){
 
@@ -93,7 +135,14 @@ module.exports = {
 
 		Feeds.findOne({id: params.id}).populate('episodes', {limit: 12, sort: 'createdAt DESC' }).exec(function(err, feed){
 
-			res.view({feed: feed});
+			if(err){
+				sails.log.error(err);
+				req.flash("message", '<h3 class="error">We\'re sorry, there was an error. Please try again.</h3>');
+				res.redirect('/');
+			}
+			if(feed){
+				res.view({feed: feed});
+			}
 
 			if(feed.visits){
 				var feedVisits = feed.visits + 1;
@@ -153,7 +202,7 @@ module.exports = {
 		searchFeeds.exec(function(err, feeds){
 			if(err){
 				sails.log.error(err);
-				req.flash("message", '<div class="error">We\'re sorry, there was an error. Please try again.</div>');
+				req.flash("message", '<h3 class="error">We\'re sorry, there was an error. Please try again.</h3>');
 				res.redirect('/');
 			}
 			if(feeds.length < 1){
