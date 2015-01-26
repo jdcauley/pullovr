@@ -77,7 +77,6 @@ module.exports = {
 				techFeeds.exec(function(err, tfeeds){
 					if(err){
 						sails.log.error(err);
-						req.flash("message", '<h3 class="error">We\'re sorry, there was an error. Please try again.</h3>');
 						res.view({data:
 							{
 								popular: feeds,
