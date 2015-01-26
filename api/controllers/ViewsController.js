@@ -70,7 +70,6 @@ module.exports = {
 		feedsQuery.exec(function(err, feeds){
 			if(err){
 				sails.log.error(err);
-				req.flash("message", '<h3 class="error">We\'re sorry, there was an error. Please try again.</h3>');
 				res.redirect('/');
 			}
 			if(feeds){
@@ -87,7 +86,6 @@ module.exports = {
 						movieFeeds.exec(function(err, mfeeds){
 							if(err){
 								sails.log.error(err);
-								req.flash("message", '<h3 class="error">We\'re sorry, there was an error. Please try again.</h3>');
 								res.view({data:
 									{
 										popular: feeds,
@@ -100,7 +98,6 @@ module.exports = {
 								newsFeeds.exec(function(err, nfeeds){
 									if(err){
 										sails.log.error(err);
-										req.flash("message", '<h3 class="error">We\'re sorry, there was an error. Please try again.</h3>');
 										res.view({data:
 											{
 												popular: feeds,
@@ -110,7 +107,6 @@ module.exports = {
 										});
 									}
 									if(nfeeds){
-										req.flash("message", '<h3 class="error">We\'re sorry, there was an error. Please try again.</h3>');
 										res.view({data:
 											{
 												popular: feeds,
