@@ -152,7 +152,9 @@ module.exports = {
 
 		searchFeeds.exec(function(err, feeds){
 			if(err){
-				res.json(err);
+				sails.log.error(err);
+				req.flash("message", '<div class="error">We\'re sorry, there was an error. Please try again.</div>');
+				res.redirect('/');
 			}
 			if(feeds.length < 1){
 

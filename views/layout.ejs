@@ -39,6 +39,7 @@
       <div class="row">
         <div class="col-lg-12">
 		      <h1 class="brand"><a href="/">Pullovr</a></h1>
+          <div class="errors front-end-errors"><%- req.flash('message') %></div>
 		       <form class="feed-form" action="/search" method="post">
             <div class="search-field">
               <input class="input" type="text" name="search" class="form-control" value="" placeholder="Find a Podcast or add a feed">
@@ -90,7 +91,7 @@
     -->
 
     <!--TEMPLATES-->
-    
+
     <!--TEMPLATES END-->
 
 
