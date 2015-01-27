@@ -25,7 +25,8 @@
     "sails": "~0.10.5",
     "sails-disk": "~0.10.0",
     "sails-mongo": "^0.10.5",
-    "sails-postgresql": "^0.10.11"
+    "sails-postgresql": "^0.10.11",
+    "simple-twitter": "^1.0.7"
   },
   "scripts": {
     "start": "node app.js",
