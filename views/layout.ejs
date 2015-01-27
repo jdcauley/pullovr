@@ -2,10 +2,33 @@
 <html>
   <head>
     <title>Pullovr</title>
-
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <% if(req.options.action == 'show'){ %>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@pullovr" />
+    <meta name="twitter:title" content="<%= feed.title %>" />
+    <meta name="twitter:description" content="<%= feed.description %>" />
+    <meta name="twitter:image" content="<%= feed.poster %>" />
+    <meta name="twitter:url" content="http://pullover.com/show/<%= feed.id %>" />
 
+    <meta property="og:site_name" content="Pullovr"/>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="<%= feed.title %>"/>
+    <meta property="og:url" content="http://pullover.com/show/<%= feed.id %>"/>
+    <meta property="og:image" content="<%= feed.poster %>"/>
+    <meta property="og:description" content="<%= feed.description %>" />
+    <meta property="fb:app_id" content="[FB_APP_ID]" />
+    <%
+       if(feed.episodes) {
+         var file = feed.episodes[0].fileType;
+         var type = file.split('/');
+    %>
+
+    <meta property="og:<%= type[0] %>" content="<%= feed.episodes[0].primaryEnclosureUrl %>" />
+    <meta property="og:<%= type[0] %>:type" content="<%= feed.episodes[0].fileType %>" />
+      <% } %>
+  <% } %>
 
     <!--
         Stylesheets and Preprocessors
@@ -162,3 +185,4 @@
     </script>
   </body>
 </html>
+ml>
