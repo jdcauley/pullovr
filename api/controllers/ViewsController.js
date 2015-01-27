@@ -7,6 +7,15 @@
 
 var parser = require('parse-rss');
 
+var twitter = require('simple-twitter');
+twitter = new twitter(
+	'l9NwxAzJeEWWBWdia7H0xNBPO', //consumer key from twitter api
+	'RXQcwbyIqUsePzDOycUtoVZ4S441WKDccEwg2eliIqwiY4CVmz', //consumer secret key from twitter api
+	'2976230387-t0u0FtlrqicLtGBU9yfTjChPOGbVMOmY8GS4Z45', //acces token from twitter api
+	'tnSK947irBIBMR6A2ANhEEu4oO93u0G10zznzD1rYSz9H', //acces token secret from twitter api
+	3600  //(optional) time in seconds in which file should be cached (only for get requests), put false for no caching
+);
+
 module.exports = {
 
 	index: function(req, res){
@@ -244,6 +253,11 @@ module.exports = {
 								}
 
 								if(done){
+									twitter.post('statuses/update',
+										{'status' : 'New Podcast, ' + created.title + ' http://pullovr.com/podcast/' + created.id},
+										function(err, data) {
+											if(err) sails.log.error(err);
+										});
 									res.redirect('/podcast/' + created.id);
 								}
 
