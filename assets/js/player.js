@@ -2,7 +2,6 @@
 
   videojs.plugin('playlist', function(options) {
 
-    console.log(this);
     var id = this.el().id;
 
     var tracks = document.querySelectorAll("#"+id+"-vjs-playlist .vjs-track"),
@@ -43,13 +42,13 @@
       var src = track.getAttribute('data-src');
       var fileType = track.getAttribute('data-type');
       var poster = track.getAttribute('data-poster');
-      console.log(poster);
+
       corElement.setAttribute('poster', poster);
       playerView.setAttribute('poster', poster);
       index = parseInt(track.getAttribute('data-index')) || index;
 
       player.src({ type: fileType, src: src, poster: poster });
-      console.log(player);
+
       if(play) player.play();
 
 //remove 'currentTrack' CSS class
