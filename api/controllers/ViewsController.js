@@ -205,6 +205,7 @@ module.exports = {
 				parser(params.search, function(err, rss) {
 
 					if (err) {
+						console.log(err);
 						res.view({
 							feeds: feeds,
 							results: params.search
@@ -248,13 +249,6 @@ module.exports = {
 
 							});
 
-						});
-
-					} else {
-
-						res.view({
-							feeds: feeds,
-							results: params.search
 						});
 
 					}
