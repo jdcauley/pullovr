@@ -1,16 +1,18 @@
-<%if(feeds){%>
 <div class="container">
   <div class="row">
     <div class="col-sm-9">
   <div class="row player-row">
     <div class="col-sm-7">
+      <% if (feeds[0]){ %>
       <video id="podcast" <% if (feeds[0].poster){ %>poster="<%= feeds[0].poster %>"<% } %> controls class="video-js vjs-default-skin">
+      <% } %>
       </video>
     </div>
     <div class="col-sm-5">
       <h4 class="results">Results for: <%= results %></h4>
     </div>
   </div>
+  <% if(feeds[0]){ %>
   <div class="jp-type-playlist">
     <div id="podcast-vjs-playlist" class="vjs-playlist jp-playlist">
   <% for(var i = 0; i < feeds.length; i++){ %>
@@ -36,6 +38,7 @@
   <% } %>
 </div>
 </div>
+<% } %>
 </div>
 <div class="col-sm-3">
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -52,4 +55,3 @@ data-ad-format="auto">
 </div>
 </div>
 </div>
-<% } %>

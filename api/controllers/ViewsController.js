@@ -206,7 +206,6 @@ module.exports = {
 
 					if (err) {
 						res.view({
-							err: err,
 							feeds: feeds,
 							results: params.search
 						});
