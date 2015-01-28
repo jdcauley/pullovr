@@ -97,6 +97,61 @@ module.exports = {
 
 	},
 
+	remove: function(req, res){
+
+		var params = req.params.all();
+
+		if(params.key === 'wfhyhItyukVAcRgEh8SmQg9CpgG'){
+
+			var feedQuery = Feeds.findOne({id: params.id});
+			feedQuery.populate('episodes');
+
+			feedQuery.exec(function(err, feed){
+				if(err){
+					res.json(500);
+				}
+
+				if(feed){
+					var episodes = feed.episodes;
+
+					async.each(episodes, function(episode, asyncCB){
+
+						Episodes.destroy(episode.id, function(err){
+							if(err){
+								sails.log.error(err);
+								asyncCB();
+							} else {
+								asyncCB();
+							}
+
+						});
+
+					}, function(err){
+
+						Feeds.destroy(params.id, function(err){
+							if(err){
+								sails.log.error(err);
+								res.json(err);
+							} else {
+								res.ok();
+							}
+
+						});
+
+					});
+
+				}
+
+			});
+
+		} else {
+
+			res.json('disallowed');
+
+		}
+
+	}
+
 	// index: function(req, res){
 	//
 	// 	var params = req.params.all();

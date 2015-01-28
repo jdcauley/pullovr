@@ -5,7 +5,7 @@ module.exports = {
   getEpisodes: function(feed, feedId, cb){
     feed.reverse();
     async.eachSeries(feed, function(episode, callback){
-      
+
       if(episode.enclosures[0]){
 
         var urlTitle = episode.title
@@ -21,7 +21,9 @@ module.exports = {
             callback();
           } else {
 
-            var theEnclosure = episode.enclosures[0].url;
+            var enclosureUrl = episode.enclosures[0].url;
+            var enclosureStripParams = enclosureUrl.split('?');
+            var theEnclosure = enclosureStripParams[0];
             var fileType = mime.lookup(theEnclosure);
             var minusExt = theEnclosure.substr(0, theEnclosure.lastIndexOf('.')) || theEnclosure;
 

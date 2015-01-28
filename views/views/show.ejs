@@ -2,9 +2,11 @@
 <div class="container">
   <div class="row player-row">
     <div class="col-sm-5">
+      <%if(feed.episodes[0].primaryEnclosureUrl){ %>
       <video id="podcast" controls poster="<%= feed.poster %>" class="video-js vjs-default-skin" preload="auto">
         <source src="<%= feed.episodes[0].primaryEnclosureUrl %>" type="<%= feed.episodes[0].fileType %>">
       </video>
+      <% } %>
     </div>
     <div class="col-sm-7">
       <div class="feed-meta">
@@ -19,6 +21,7 @@
       <div id="podcast-vjs-playlist" class="vjs-playlist jp-playlist">
         <% var episodes = feed.episodes %>
         <% for(var i = 0; i < episodes.length; i++){ %>
+          <%if(episodes[i].primaryEnclosureUrl){ %>
           <div class="col-sm-12 feed-content">
             <a class='vjs-track currentTrack' href='#track-<%= i %>' data-index='<%= i %>' data-poster="<%= feed.poster %>" data-src="<%= episodes[i].primaryEnclosureUrl %>" data-type="<%= episodes[i].fileType %>">
               <h3 class="episode-title"><span class="glyphicon glyphicon-play play-icon"></span><%= episodes[i].title %></h3>
@@ -28,6 +31,7 @@
               <%- episodes[i].content %>
             <% } %>
           </div>
+          <% } %>
         <% } %>
 
       </div>

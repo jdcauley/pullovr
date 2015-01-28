@@ -47,6 +47,10 @@ module.exports.routes = {
   'get /feeds/fetch/:key': {
     controller: 'FeedsController',
     action: 'fetch'
+  },
+  'get /feeds/:id/remove/:key': {
+    controller: 'FeedsController',
+    action: 'remove'
   }
 
   /***************************************************************************
