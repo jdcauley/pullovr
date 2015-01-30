@@ -1,10 +1,81 @@
-<div class="container show-container">
-<%if(feeds){%>
-<% feeds.forEach(function(feed){ %>
-  <a class="card" href="/podcast/<%= feed.id %>">
-    <img class="poster" src="<%= feed.poster %>" alt="<%= feed.title %>">
-  </a>
+<%
+  var popular = data.popular;
+  var tech = data.tech;
+  var news = data.news;
+  var movies = data.movie;
+%>
 
-<% }) %>
-<% } %>
+<div class="container show-container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Most Popular</h3>
+    </div>
+    <div class="col-sm-9">
+      <div class="row">
+    <%if(popular){%>
+      <% popular.forEach(function(feed){ %>
+        <a class="col-sm-3 col-xs-4 card" href="/podcast/<%= feed.id %>">
+          <img class="poster img-responsive" src="<%= feed.poster %>" alt="<%= feed.title %>">
+        </a>
+      <% }) %>
+    <% } %>
+    </div>
+      <div class="row">
+    <div class="col-sm-4">
+      <h3>News</h3>
+      <div class="row">
+        <%if(news){%>
+          <% news.forEach(function(feed){ %>
+            <a class="col-xs-4 col-sm-6 mini-card" href="/podcast/<%= feed.id %>">
+              <img class="poster img-responsive" src="<%= feed.poster %>" alt="<%= feed.title %>">
+            </a>
+            <% }) %>
+            <% } %>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <h3>Technology</h3>
+          <div class="row">
+            <%if(tech){%>
+              <% tech.forEach(function(feed){ %>
+                <a class="col-xs-4 col-sm-6 mini-card" href="/podcast/<%= feed.id %>">
+                  <img class="poster img-responsive" src="<%= feed.poster %>" alt="<%= feed.title %>">
+                </a>
+                <% }) %>
+                <% } %>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <h3>Movies</h3>
+              <div class="row">
+                <%if(movies){%>
+                  <% movies.forEach(function(feed){ %>
+                    <a class="col-xs-4 col-sm-6 mini-card" href="/podcast/<%= feed.id %>">
+                      <img class="poster img-responsive" src="<%= feed.poster %>" alt="<%= feed.title %>">
+                    </a>
+                    <% }) %>
+                    <% } %>
+                  </div>
+                </div>
+
+
+
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- responsive ad slot -->
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-0689021357153120"
+        data-ad-slot="4178431797"
+        data-ad-format="auto">
+      </ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </div>
 </div>

@@ -2,7 +2,7 @@
 
  videojs.plugin('playlist', function(options) {
   //this.L="vjs_common_one";
-  
+
 
   console.log(this);
   var id=this.el().id;
@@ -76,10 +76,9 @@
                   /*
                   { type: "audio/ogg", src: src+".oga" }*/
                ]);
-            }
-            else{
+            } else{
             //console.log("video");
-              player.src([                
+              player.src([
                 { type: "video/mp4", src:  src+".mp4" },
                 { type: "video/webm", src: src+".webm" }
                 //{ type: "video/ogv", src: src+".ogv" }

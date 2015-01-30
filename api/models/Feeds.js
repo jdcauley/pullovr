@@ -46,13 +46,18 @@ module.exports = {
 			defaultsTo: null
 		},
 		feedUpdated: {
-			type: 'string',
+			type: 'datetime',
 			defaultsTo: null
 		},
 		categories: {
 			type: 'json',
 			defaultsTo: null
 		},
+    visits: {
+      type: 'integer',
+      defaultsTo: 1
+    }
+
 
   }
 };

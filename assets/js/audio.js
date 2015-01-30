@@ -1,9 +1,8 @@
             // initialize video.js
-            
+
 //note in the data-src's above that there are no file extensions, e.g., .m4v
 
-
-videojs("#audio-playlist", {"height":"auto", "width":"auto","customControlsOnMobile": true}).ready(function(event){
+videojs("#podcast", {"height":"auto", "width":"auto","customControlsOnMobile": false}).ready(function(event){
     var myPlayer=this;
 
     var playlist=myPlayer.playlist({
@@ -11,18 +10,19 @@ videojs("#audio-playlist", {"height":"auto", "width":"auto","customControlsOnMob
     'continuous': true,
     'setTrack': 0
     });
-    myPlayer.on('playing', function(){
-        var poster=document.getElementsByClassName("vjs-poster")[1];
-        poster.style.display="block";
-
-    }); 
+    // myPlayer.on('playing', function(){
+    //     var poster=document.getElementsByClassName("vjs-poster")[1];
+    //     poster.style.display="block";
+    //
+    // });
 
     //if(typeof myPlayer.L!="undefined") myPlayer.id_=myPlayer.L;
-    
+
     function resizeVideoJS(){
       var width = document.getElementById(myPlayer.el().id).parentElement.offsetWidth;
+      var width = width - 30;
       var aspectRatio=8/12;
-      myPlayer.width(width).height( width * aspectRatio); 
+      myPlayer.width(width).height( width * aspectRatio);
     }
 
     resizeVideoJS(); // Initialize the function
@@ -34,12 +34,11 @@ videojs("#audio-playlist", {"height":"auto", "width":"auto","customControlsOnMob
         if(e.keyCode==37){
           console.log("prev audio track");
           playlist.prev();
-        } 
+        }
         else if(e.keyCode==39){
           console.log("next audio track");
           playlist.next();
-        } 
-    } 
+        }
+    }
 
 });
-

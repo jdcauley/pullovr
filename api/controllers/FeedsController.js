@@ -59,41 +59,29 @@ module.exports = {
 
 			var fetch = Feeds.find();
 
+			res.ok();
 
 			fetch.exec(function(err, feeds){
-				if(err) res.json(err);
+				if(err){
+					sails.log.error(err);
+				}
 				if(feeds){
+					async.each(feeds, function(feed, asyncCB){
 
-					async.each(feeds, function(feed, callback){
-						console.log(feed);
-						parser(feed.feed, function(err, rss) {
+						utility.feedParser(feed, function(err, done){
 							if(err){
-								console.log(err);
-								callback();
+								sails.log.error(err);
+								asyncCB();
 							}
-							if(rss && (feed.feedUpdated != rss[0].pubDate)){
-
-									utility.getEpisodes(rss, feed.id, function(err, done){
-										if(err){
-											callback(err);
-										}
-										if(done){
-											callback();
-										}
-									});
-
-
-							} else {
-								callback();
+							if(done){
+								asyncCB();
 							}
 
 						});
 
 					}, function(err){
 						if(err){
-							res.json(err);
-						} else {
-							res.ok();
+							sails.log.error(err);
 						}
 					});
 				}
@@ -109,34 +97,89 @@ module.exports = {
 
 	},
 
-	index: function(req, res){
+	remove: function(req, res){
 
 		var params = req.params.all();
 
-		var feedsQuery = Feeds.find();
-		feedsQuery.populate('episodes');
+		if(params.key === 'wfhyhItyukVAcRgEh8SmQg9CpgG'){
 
-		if(params.offset){
-			feedsQuery.skip(params.offset);
+			var feedQuery = Feeds.findOne({id: params.id});
+			feedQuery.populate('episodes');
+
+			feedQuery.exec(function(err, feed){
+				if(err){
+					res.json(500);
+				}
+
+				if(feed){
+					var episodes = feed.episodes;
+
+					async.each(episodes, function(episode, asyncCB){
+
+						Episodes.destroy(episode.id, function(err){
+							if(err){
+								sails.log.error(err);
+								asyncCB();
+							} else {
+								asyncCB();
+							}
+
+						});
+
+					}, function(err){
+
+						Feeds.destroy(params.id, function(err){
+							if(err){
+								sails.log.error(err);
+								res.json(err);
+							} else {
+								res.ok();
+							}
+
+						});
+
+					});
+
+				}
+
+			});
+
 		} else {
-			feedsQuery.skip(0);
-		}
-		if(params.count){
-			feedsQuery.limit(params.count);
-		} else {
-			feedsQuery.limit(12);
+
+			res.json('disallowed');
+
 		}
 
-		feedsQuery.exec(function(err, feeds){
-			if(err){
-				res.json(err);
-			}
-			if(feeds){
-				res.json({
-					feeds: feeds
-				});
-			}
-		});
 	}
+
+	// index: function(req, res){
+	//
+	// 	var params = req.params.all();
+	//
+	// 	var feedsQuery = Feeds.find();
+	// 	feedsQuery.populate('episodes');
+	//
+	// 	if(params.offset){
+	// 		feedsQuery.skip(params.offset);
+	// 	} else {
+	// 		feedsQuery.skip(0);
+	// 	}
+	// 	if(params.count){
+	// 		feedsQuery.limit(params.count);
+	// 	} else {
+	// 		feedsQuery.limit(12);
+	// 	}
+	//
+	// 	feedsQuery.exec(function(err, feeds){
+	// 		if(err){
+	// 			res.json(err);
+	// 		}
+	// 		if(feeds){
+	// 			res.json({
+	// 				feeds: feeds
+	// 			});
+	// 		}
+	// 	});
+	// }
 
 };

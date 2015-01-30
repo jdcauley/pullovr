@@ -37,7 +37,7 @@ module.exports = {
 			defaultsTo: null
 		},
 		pubDate: {
-			type: 'string',
+			type: 'datetime',
 			defaultsTo: null
 		},
 		episodePage: {
