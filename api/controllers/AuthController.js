@@ -10,7 +10,6 @@ module.exports = {
 
 	twitter: function(req, res){
 		passport.authenticate('twitter', function (err, user) {
-			console.log(user);
 			req.logIn(user, function (err) {
 				if(err) {
 					console.log(err);

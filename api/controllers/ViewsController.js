@@ -158,6 +158,7 @@ module.exports = {
 				res.redirect('/');
 			}
 			if(feed){
+				req.session.feed = feed.id;
 				res.view({
 					data: {
 						user: user,
