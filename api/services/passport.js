@@ -1,5 +1,6 @@
 var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
+
 // helper functions
 function findById(id, fn) {
   User.findOne({id: id}, function(err, user){
@@ -27,58 +28,41 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-// Use the LocalStrategy within Passport.
-// Strategies in passport require a `verify` function, which accept
-// credentials (in this case, a username and password), and invoke a callback
-// with a user object.
-// passport.use(new LocalStrategy(
-//   function(username, password, done) {
-//     // asynchronous verification, for effect...
-//     process.nextTick(function () {
-//       // Find the user by username. If there is no user with the given
-//       // username, or the password is not correct, set the user to `false` to
-//       // indicate failure and set a flash message. Otherwise, return the
-//       // authenticated `user`.
-//       findByUsername(username, function(err, user) {
-//         if (err) { return done(null, err); }
-//         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
-//         crypto.compare(password, user.password, function(response) {
-//           if(!response) return done(null, false, { message: 'Invalid Password' }); // error passwords dont compare
-//             var returnUser = { username: user.username, createdAt: user.createdAt, id: user.id };
-//             return done(null, returnUser, { message: 'Logged In Successfully'} );
-//           });
-//
-//         })
-//       });
-//     }
-//   ));
-
 passport.use(new TwitterStrategy({
-  consumerKey: TWITTER_CONSUMER_KEY,
-  consumerSecret: TWITTER_CONSUMER_SECRET,
-  callbackURL: "http://localhost:1337/auth/twitter/callback"
+  consumerKey: 'l9NwxAzJeEWWBWdia7H0xNBPO',
+  consumerSecret: 'RXQcwbyIqUsePzDOycUtoVZ4S441WKDccEwg2eliIqwiY4CVmz',
+  callbackURL: "http://localhost:1338/auth/twitter/"
 },
 function(token, tokenSecret, profile, done) {
-  User.findOne({twitterId: profile.id}, function(err, localUser){
+  User.findOne({twitterId: profile.id}, function(err, user){
     if(err) console.log(err);
-    if(localUser){
+    if(user){
       return done(null, user);
     } else {
+
+      var imageUrl = profile._json.profile_image_url_https;
+
+      var splitUnder = imageUrl.split('_');
+      var splitExt = splitUnder[2].split('.');
+      splitUnder[0] = splitUnder[0] + '_';
+      splitUnder[2] = '_400x400.' + splitExt[1];
+
+      var imageUrl = splitUnder.join('');
+
       User.create({
-        rdioId: profile.id,
-        fullName: profile.displayName,
-        firstName: profile._json.result.firstName,
-        lastName: profile._json.result.lastName,
-        url: profile._json.result.url,
-        avatar: profile._json.result.icon,
+        twitterId: profile.id,
+        username: profile.username,
+        displayName: profile.displayName,
+        avatar: imageUrl,
+        raw: profile._json,
         token: token,
         secret: tokenSecret
-      }, function(err, user){
+      }, function(err, newUser){
         if(err){
           return done(err);
         }
-        if(user){
-          return done(null, user)
+        if(newUser){
+          return done(null, newUser)
         }
       })
     }

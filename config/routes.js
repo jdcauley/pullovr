@@ -51,6 +51,14 @@ module.exports.routes = {
   'get /feeds/:id/remove/:key': {
     controller: 'FeedsController',
     action: 'remove'
+  },
+  'get /auth/twitter': {
+    controller: 'AuthController',
+    action: 'twitter'
+  },
+  '/logout': {
+    controller: 'AuthController',
+    action: 'logout'
   }
 
   /***************************************************************************

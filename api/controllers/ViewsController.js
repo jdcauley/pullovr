@@ -19,6 +19,10 @@ twitter = new twitter(
 module.exports = {
 
 	index: function(req, res){
+		var user = null;
+		if(req.user){
+			user = req.user;
+		}
 
 		var feedsQuery = Feeds.find();
 		feedsQuery.sort('visits DESC');
@@ -87,6 +91,7 @@ module.exports = {
 						sails.log.error(err);
 						res.view({data:
 							{
+								user: user,
 								popular: feeds,
 							}
 						});
@@ -97,6 +102,7 @@ module.exports = {
 								sails.log.error(err);
 								res.view({data:
 									{
+										user: user,
 										popular: feeds,
 										tech: tfeeds,
 									}
@@ -109,6 +115,7 @@ module.exports = {
 										sails.log.error(err);
 										res.view({data:
 											{
+												user: user,
 												popular: feeds,
 												tech: tfeeds,
 												movie: mfeeds
@@ -118,6 +125,7 @@ module.exports = {
 									if(nfeeds){
 										res.view({data:
 											{
+												user: user,
 												popular: feeds,
 												tech: tfeeds,
 												movie: mfeeds,
@@ -137,6 +145,11 @@ module.exports = {
 
 		var params = req.params.all();
 
+		var user = null;
+		if(req.user){
+			user = req.user;
+		}
+
 		Feeds.findOne({id: params.id}).populate('episodes', {limit: 12, sort: 'createdAt DESC' }).exec(function(err, feed){
 
 			if(err){
@@ -145,7 +158,12 @@ module.exports = {
 				res.redirect('/');
 			}
 			if(feed){
-				res.view({feed: feed});
+				res.view({
+					data: {
+						user: user,
+						feed: feed
+					}
+				});
 			}
 
 			if(feed.visits){
@@ -167,6 +185,11 @@ module.exports = {
 	search: function(req, res){
 
 		var params = req.params.all();
+
+		var user = null;
+		if(req.user){
+			user = req.user;
+		}
 
 		var searchContent = params.search;
 		var stringArray = searchContent.split(',');
@@ -216,8 +239,11 @@ module.exports = {
 					if (err) {
 						console.log(err);
 						res.view({
-							feeds: feeds,
-							results: params.search
+							data: {
+								user: user,
+								feeds: feeds,
+								results: params.search
+							}
 						});
 					}
 					if(rss){
@@ -272,8 +298,11 @@ module.exports = {
 			} else {
 
 				res.view({
-					feeds: feeds,
-					results: params.search
+					data: {
+						user: user,
+						feeds: feeds,
+						results: params.search
+					}
 				});
 			}
 		});
