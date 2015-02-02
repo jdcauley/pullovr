@@ -56,8 +56,17 @@ module.exports = {
     visits: {
       type: 'integer',
       defaultsTo: 1
+    },
+    reviews: {
+      collection: 'reviews',
+      via: 'feed'
+    },
+    ratingsTotal: {
+      type: 'integer'
+    },
+    ratingsCount: {
+      type: 'integer'
     }
-
 
   }
 };

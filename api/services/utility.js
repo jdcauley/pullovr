@@ -92,6 +92,52 @@ module.exports = {
         feedCB();
       }
     });
+  },
+
+  updateFeedRating: function(rating, callback){
+    console.log('updating feed rating');
+
+    var feedQuery = Feeds.findOne({id: rating.feed});
+
+    feedQuery.exec(function(err, feed){
+      if(err){
+        sails.log.error(err);
+      }
+      if(feed){
+
+        if(feed.ratingsTotal && feed.ratingsCount){
+
+          var currentTotal = parseInt(feed.ratingsTotal, 10);
+          var currentCount = feed.ratingsCount;
+          var newCount = (feed.ratingsCount + 1);
+          var newRating = rating.rating;
+          var sumTotal = parseFloat(currentTotal) * parseFloat(currentCount);
+          var newSumTotal = parseFloat(sumTotal) + parseFloat(newRating);
+
+          var newAverage = parseFloat(newSumTotal) / parseFloat(newCount);
+
+          Feeds.update(feed.id, {ratingsTotal: newAverage, ratingsCount: newCount}, function(err, done){
+            if(err){
+              sails.log.error(err);
+              return callback(err);
+            }
+            if(done){
+              return callback(null, done);
+            }
+          });
+
+        } else {
+
+          Feeds.update(feed.id, {ratingsTotal: rating.rating, ratingsCount: 1}, function(err, done){
+            if(err) sails.log.error(err);
+            return callback(null, done);
+          });
+
+        }
+
+      }
+    });
+
   }
 
 };

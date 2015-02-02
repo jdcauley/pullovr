@@ -150,6 +150,10 @@ module.exports = {
 			user = req.user;
 		}
 
+		feedQuery = Feeds.findOne({id: params.id});
+		feedQuery.populate('episodes', {limit: 12, sort: 'createdAt DESC'});
+		feedQuery.populate('reviews');
+
 		Feeds.findOne({id: params.id}).populate('episodes', {limit: 12, sort: 'createdAt DESC' }).exec(function(err, feed){
 
 			if(err){

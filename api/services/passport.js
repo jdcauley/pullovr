@@ -51,12 +51,12 @@ function(token, tokenSecret, profile, done) {
 
       User.create({
         twitterId: profile.id,
-        username: profile.username,
-        displayName: profile.displayName,
-        avatar: imageUrl,
-        raw: profile._json,
-        token: token,
-        secret: tokenSecret
+        twitterUsername: profile.username,
+        twitterName: profile.displayName,
+        twitterAvatar: imageUrl,
+        twitterRaw: profile._json,
+        twitterToken: token,
+        twitterSecret: tokenSecret
       }, function(err, newUser){
         if(err){
           return done(err);

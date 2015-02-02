@@ -9,6 +9,28 @@ module.exports = {
 
   attributes: {
 
+    reviews: {
+      collection: 'reviews',
+      via: 'user'
+    },
+    twitterId: {
+      type: 'string'
+    },
+    twitterUsername: {
+      type: 'string'
+    },
+    twitterName: {
+      type: 'string'
+    },
+    twitterAvatar: {
+      type: 'string'
+    },
+    twitterToken: {
+      type: 'string'
+    },
+    twitterSecret: {
+      type: 'string'
+    }
+
   }
 };
-

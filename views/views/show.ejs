@@ -14,41 +14,40 @@
       <div class="feed-meta">
         <h2 class="feed-title"><%= feed.title %><span><a href="#disqus_thread"></a><span></h4>
         <p class="feed-description"><%= feed.description %></p>
+        <% if(feed.ratingsTotal){
+           var total = feed.ratingsTotal * 20;
+        %>
+          <h3><%= feed.ratingsTotal %></h3>
+          <div class="rating" style="position: relative;">
+
+            <div class="progress" style="width: 100px; position: absolute; top: 0;">
+              <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= total %>%;">
+                <span class="sr-only">60% Complete</span>
+              </div>
+            </div>
+            <div class="dots" style="postion: absolute; width: 100px; top: 0; z-index: 1000;">
+              <div class="dot" style="display: inline-block; height: 20px; width: 20px; border-radius: 50%; border: 1px solid black;"></div>
+            </div>
+        </div>
+        <% } %>
         <% if(data.user){ %>
         <div class="review">
-          <form action="/reviews/create" method="post">
-            <input class="form-control" type="text" name="title" value="" placeholder="title">
+          <form action="/ratings/new" method="post">
             <div class="radio">
-              <label>
                 <input type="radio" name="rating" id="optionsRadios1" value="1">
-                1
-              </label>
             </div>
             <div class="radio">
-              <label>
                 <input type="radio" name="rating" id="optionsRadios2" value="2">
-                2
-              </label>
             </div>
             <div class="radio">
-              <label>
                 <input type="radio" name="rating" id="optionsRadios3" value="3">
-                3
-              </label>
             </div>
             <div class="radio">
-              <label>
                 <input type="radio" name="rating" id="optionsRadios3" value="4">
-                4
-              </label>
             </div>
             <div class="radio">
-              <label>
                 <input type="radio" name="rating" id="optionsRadios3" value="5" checked>
-                5
-              </label>
             </div>
-            <textarea class="form-control" name="review" value="" placeholder="Review"></textarea>
             <input type="submit" value="Submit" class="btn btn-default">
           </form>
         </div>

@@ -11,6 +11,9 @@ module.exports = {
 
 		var params = req.params.all();
 
+		if(!params.rating){
+			params.rating = 3;
+		}
 		if(params.rating > 5){
 			params.rating = 5;
 		}
@@ -31,6 +34,8 @@ module.exports = {
 				res.redirect('/podcast/' + req.session.feed)
 			}
 			if(review){
+				console.log(review);
+				utility.updateFeedRating(review);
 				res.redirect('/podcast/' + req.session.feed);
 			}
 
