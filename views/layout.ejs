@@ -144,11 +144,14 @@
           + Use a different preprocessor, like TypeScript
 
     -->
+    <% console.log(req.options); %>
+    <% if(req.options.action == 'show'){ %>
     <script src="//vjs.zencdn.net/4.11/video.js"></script>
     <script src="/js/player.js"></script>
     <script src="/js/audio.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-    <script src="js/dependencies/sails.io.js"></script>
+    <% } %>
+    <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/style.js"></script>
 
     <script type="text/javascript">

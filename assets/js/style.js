@@ -18,3 +18,14 @@
 
 
 })();
+
+io.socket.on("ratings", function(event){
+  console.log(event.data);
+
+});
+
+io.socket.post("/ratings/newAsync", { rating: 4 }, function(resData, jwres) {
+
+  console.log(resData);
+
+});

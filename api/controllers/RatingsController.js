@@ -11,8 +11,6 @@ module.exports = {
 
 		var params = req.params.all();
 
-		console.log(params);
-
 		if(params.rating > 5){
 			params.rating = 5;
 		}
@@ -45,6 +43,47 @@ module.exports = {
 
 		});
 
+	},
+
+	newAsync: function(req, res){
+
+		var params = req.params.all();
+
+		console.log(params);
+		console.log('user id: ' + req.session.passport.user);
+		console.log(req.isSocket);
+
+		if(params.rating > 5){
+			params.rating = 5;
+		}
+		if(params.rating < 1){
+			params.rating = 1;
+		}
+
+		Ratings.create({
+			user: req.session.passport.user,
+			feed: req.session.feed,
+			rating: params.rating,
+		}, function(err, newRating){
+			if(err){
+				sails.log.error(err);
+				res.json(err);
+			}
+			if(newRating){
+				console.log(newRating);
+				utility.updateFeedRating(newRating, function(err, newFeed){
+					if(err){
+						res.json(err);
+					} else {
+						res.json({feed: newFeed});
+					}
+				});
+
+			}
+
+		});
+
 	}
+
 
 };
