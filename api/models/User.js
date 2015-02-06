@@ -13,6 +13,10 @@ module.exports = {
       collection: 'reviews',
       via: 'user'
     },
+    votes: {
+      collection: 'votes',
+      via: 'user'
+    },
     twitterId: {
       type: 'string'
     },

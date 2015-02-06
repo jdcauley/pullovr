@@ -61,11 +61,9 @@ module.exports = {
       collection: 'reviews',
       via: 'feed'
     },
-    ratingsTotal: {
-      type: 'integer'
-    },
-    ratingsCount: {
-      type: 'integer'
+    votes: {
+      collection: 'votes',
+      via: 'feed'
     }
 
   }

@@ -94,6 +94,93 @@ module.exports = {
     });
   },
 
+  updateFeed: function(params, feedId, callback){
+
+    feeds.update(feedId, params, function(err, feed){
+      if(err) return callback(err);
+
+      if(feed) return callback(null, feed);
+    });
+
+  },
+
+  votes: function(params, callback){
+    console.log(params);
+
+    var feedQuery = Feeds.findOne({id: params.feed});
+    var votesQuery = Votes.find({where: {feed: params.feed, user: params.user}});
+
+    votesQuery.exec(function(err, votes){
+
+      if(err) {
+        console.log(err)
+        return callback(err)
+      }
+
+      if(votes){
+        console.log(votes);
+        return callback(null, votes);
+      } else {
+
+        Vote.create({
+          feed: feed.id,
+          user: params.user,
+          vote: params.vote
+        }, function(err, done){
+          if(err){
+
+            return callback(err);
+          }
+          if(done){
+
+            feedQuery.exec(function(err, feed){
+              if(err) return callback(err);
+
+              if(feed){
+
+                if(params.vote === 'up'){
+
+                  var newUpVote = (feed.upVote + 1);
+
+                  console.log(newUpVote);
+
+                  Feed.update(params.feed, {upVote: newUpVote}, function(err, newFeed){
+                    if(err){
+                      return callback(err);
+                    } else {
+                      return callback(null, newFeed);
+                    }
+                  });
+
+                } else if(params.vote === 'down'){
+                  var newDownVote = (feed.downVote + 1);
+
+                  console.log(newDownVote);
+
+                  Feed.update(params.feed, {downVote: newDownVote}, function(err, newFeed){
+                    if(err){
+                      return callback(err);
+                    } else {
+                      return callback(null, newFeed);
+                    }
+                  });
+
+                } else {
+                  console.log('no params');
+                  return callback({error: 'no params'});
+                }
+
+              }
+
+            });
+          }
+
+        });
+      }
+    });
+  },
+
+
   updateFeedRating: function(rating, callback){
     console.log('updating feed rating');
 
@@ -105,16 +192,21 @@ module.exports = {
       }
       if(feed){
 
-        if(feed.ratingsTotal && feed.ratingsCount){
+        if(feed.upVotes && feed.downVotes){
+
+          console.log('new rating ' + rating.rating);
 
           var currentTotal = parseInt(feed.ratingsTotal, 10);
-          var currentCount = feed.ratingsCount;
+          console.log(currentTotal);
+          var sumTotal = parseFloat(currentTotal) * parseFloat(feed.ratingsCount);
+          console.log(sumTotal);
           var newCount = (feed.ratingsCount + 1);
-          var newRating = rating.rating;
-          var sumTotal = parseFloat(currentTotal) * parseFloat(currentCount);
-          var newSumTotal = parseFloat(sumTotal) + parseFloat(newRating);
-
+          console.log(newCount);
+          var newSumTotal = parseFloat(sumTotal) + parseFloat(rating.rating);
+          console.log(newSumTotal);
           var newAverage = parseFloat(newSumTotal) / parseFloat(newCount);
+
+          console.log(newAverage);
 
           Feeds.update(feed.id, {ratingsTotal: newAverage, ratingsCount: newCount}, function(err, done){
             if(err){
