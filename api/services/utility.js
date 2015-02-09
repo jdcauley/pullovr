@@ -108,7 +108,7 @@ module.exports = {
     console.log(params);
 
     var feedQuery = Feeds.findOne({id: params.feed});
-    var votesQuery = Votes.find({where: {feed: params.feed, user: params.user}});
+    var votesQuery = Votes.find();
 
     votesQuery.exec(function(err, votes){
 
@@ -117,13 +117,14 @@ module.exports = {
         return callback(err)
       }
 
-      if(votes){
-        console.log(votes);
+      if(votes > 0){
+        console.log('votes: ' + votes);
         return callback(null, votes);
-      } else {
 
-        Vote.create({
-          feed: feed.id,
+      } else {
+        console.log('create vote');
+        Votes.create({
+          feed: params.feed,
           user: params.user,
           vote: params.vote
         }, function(err, done){
@@ -144,7 +145,7 @@ module.exports = {
 
                   console.log(newUpVote);
 
-                  Feed.update(params.feed, {upVote: newUpVote}, function(err, newFeed){
+                  Feeds.update(params.feed, {upVote: newUpVote}, function(err, newFeed){
                     if(err){
                       return callback(err);
                     } else {
@@ -157,7 +158,7 @@ module.exports = {
 
                   console.log(newDownVote);
 
-                  Feed.update(params.feed, {downVote: newDownVote}, function(err, newFeed){
+                  Feeds.update(params.feed, {downVote: newDownVote}, function(err, newFeed){
                     if(err){
                       return callback(err);
                     } else {

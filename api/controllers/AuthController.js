@@ -16,6 +16,8 @@ module.exports = {
 					res.view('500');
 					return;
 				}
+				console.log(req.options);
+				console.log(req.session);
 				res.redirect('/?authed-to-twitter=true');
 				return;
 			});
