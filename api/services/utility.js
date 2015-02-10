@@ -108,7 +108,7 @@ module.exports = {
     console.log(params);
 
     var feedQuery = Feeds.findOne({id: params.feed});
-    var votesQuery = Votes.find();
+    var votesQuery = Votes.find({where: {user: params.user, feed: params.feed}});
 
     votesQuery.exec(function(err, votes){
 
@@ -117,9 +117,28 @@ module.exports = {
         return callback(err)
       }
 
-      if(votes > 0){
+      if(votes){
+
         console.log('votes: ' + votes);
-        return callback(null, votes);
+        if(votes[0].vote == params.vote){
+          return callback(null, votes[0]);
+
+        } else {
+
+          Votes.update(votes[0].id, {vote: params.vote}, function(err, updatedVote){
+
+            if(err){
+              return callback(err);
+            }
+            if(updatedVote){
+              return callback(null, updatedVote);
+            }
+
+          });
+
+
+        }
+
 
       } else {
         console.log('create vote');
@@ -140,8 +159,12 @@ module.exports = {
               if(feed){
 
                 if(params.vote === 'up'){
+                  if(feed.upVote){
+                    var newUpVote = (feed.upVote + 1);
+                  } else {
+                    var newUpVote = 1;
+                  }
 
-                  var newUpVote = (feed.upVote + 1);
 
                   console.log(newUpVote);
 
@@ -154,7 +177,11 @@ module.exports = {
                   });
 
                 } else if(params.vote === 'down'){
-                  var newDownVote = (feed.downVote + 1);
+                  if(feed.downVote){
+                    var newDownVote = (feed.downVote + 1);
+                  } else {
+                    var newDownVote = 1;
+                  }
 
                   console.log(newDownVote);
 
