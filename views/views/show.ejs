@@ -13,14 +13,29 @@
     <div class="col-sm-7">
       <div class="feed-meta">
         <h2 class="feed-title"><%= feed.title %><span><a href="#disqus_thread"></a><span></h4>
+          <% if(data.user){ %>
+            <div class="vote-box">
+              <div id="js-up-vote" class="vote-count"><% if(feed.upVote){ %><%= feed.upVote %><% } else { %>0<% } %></div>
+              <div class="js-vote glyphicon glyphicon-thumbs-up vote up-vote" data-vote="up"></div>
+            </div>
+            <div class="vote-box">
+              <div id="js-down-vote" class="vote-count"><% if(feed.downVote){ %><%= feed.downVote %><% } else { %>0<% } %></div>
+              <div class="js-vote glyphicon glyphicon-thumbs-down vote down-vote" data-vote="down"></div>
+            </div>
+          <% } else { %>
+            <a href="/auth/twitter">Login with Twitter</a>
+          <% } %>
+          <nav class="podcast-nav">
+            <ul>
+              <li>
+                <a href="<%= feed.feed %>">RSS</a>
+              </li>
+              <li>
+                <a href="<%= feed.site %>">Website</a>
+            </ul>
+          </nav>
         <p class="feed-description"><%= feed.description %></p>
 
-        <% if(data.user){ %>
-          <div class="js-vote vote down-vote" data-vote="down"></div>
-          <div class="js-vote vote up-vote" data-vote="up"></div>
-        <% } else { %>
-          <a href="/auth/twitter">Login with Twitter</a>
-        <% } %>
       </div>
     </div>
   </div>

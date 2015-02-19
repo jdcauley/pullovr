@@ -255,14 +255,35 @@ h1, h2, h3, h4, h5, h6{
   width: 12px;
   padding: 3px;
 }
-
-.vote{
+.vote-box{
   display: inline-block;
-  height: 20px;
-  width: 20px;
   padding: 5px;
-  background: @brand-primary;
+}
+.vote{
+  font-size: 22px;
+  color: @brand-primary;
   &:hover{
-    background: black;
+    color: black;
+  }
+}
+.vote-count{
+  font-size: 16px;
+  padding: 0 3px;
+}
+
+.podcast-nav{
+  display: inline-block;
+  margin-bottom: 15px;
+  ul{
+    margin-left: 0;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 0;
+    li{
+      display: inline-block;
+      padding-right: 10px;
+    }
   }
 }

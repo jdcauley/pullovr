@@ -105,105 +105,63 @@ module.exports = {
   },
 
   votes: function(params, callback){
-    console.log(params);
-
     var feedQuery = Feeds.findOne({id: params.feed});
+
     var votesQuery = Votes.find({where: {user: params.user, feed: params.feed}});
 
+    var upQuery = Votes.find({where: {vote: 'up', feed: params.feed}});
+
+    var downQuery = Votes.find({where: {vote: 'down', feed: params.feed}});
+
     votesQuery.exec(function(err, votes){
-
-      if(err) {
-        console.log(err)
-        return callback(err)
-      }
-
-      if(votes){
-
-        console.log('votes: ' + votes);
+      if(err) return callback(err);
+      if(votes[0]){
         if(votes[0].vote == params.vote){
-          return callback(null, votes[0]);
-
-        } else {
-
-          Votes.update(votes[0].id, {vote: params.vote}, function(err, updatedVote){
-
-            if(err){
-              return callback(err);
-            }
-            if(updatedVote){
-              return callback(null, updatedVote);
-            }
-
+          feedQuery.exec(function(err, originalFeed){
+            if(err) return callback(err);
+            if(originalFeed) return callback(originalFeed);
           });
+        } else {
+          Votes.update(votes.id, {vote: params.vote}, function(err, updatedVote){
+            upQuery.exec(function(err, upData){
+              downQuery.exec(function(err, downData){
+                Feeds.update(params.feed, {upVote: upData.length, downVote: downData.length}, function(err, updatedFeed){
 
-
-        }
-
-
-      } else {
-        console.log('create vote');
-        Votes.create({
-          feed: params.feed,
-          user: params.user,
-          vote: params.vote
-        }, function(err, done){
-          if(err){
-
-            return callback(err);
-          }
-          if(done){
-
-            feedQuery.exec(function(err, feed){
-              if(err) return callback(err);
-
-              if(feed){
-
-                if(params.vote === 'up'){
-                  if(feed.upVote){
-                    var newUpVote = (feed.upVote + 1);
-                  } else {
-                    var newUpVote = 1;
-                  }
-
-
-                  console.log(newUpVote);
-
-                  Feeds.update(params.feed, {upVote: newUpVote}, function(err, newFeed){
-                    if(err){
-                      return callback(err);
-                    } else {
-                      return callback(null, newFeed);
-                    }
-                  });
-
-                } else if(params.vote === 'down'){
-                  if(feed.downVote){
-                    var newDownVote = (feed.downVote + 1);
-                  } else {
-                    var newDownVote = 1;
-                  }
-
-                  console.log(newDownVote);
-
-                  Feeds.update(params.feed, {downVote: newDownVote}, function(err, newFeed){
-                    if(err){
-                      return callback(err);
-                    } else {
-                      return callback(null, newFeed);
-                    }
-                  });
-
-                } else {
-                  console.log('no params');
-                  return callback({error: 'no params'});
-                }
-
-              }
-
+                  if(err) return callback(err);
+                  if(updatedFeed) return callback(null, updatedFeed);
+                });
+              });
             });
+          });
+        }
+      } else {
+        Votes.create({
+          vote: params.vote,
+          feed: params.feed,
+          user: params.user
+        }, function(err){
+          if(err){
+            return callback(err);
+          } else {
+            if(params.vote == 'up'){
+              Feeds.update(params.feed, {upVote: 1}, function(err, updatedFeed){
+                if(err){
+                  return callback(err);
+                } else {
+                  return callback(null, updatedFeed);
+                }
+              });
+            } else {
+              Feeds.update(params.feed, {downVote: 1}, function(err, updatedFeed){
+                if(err){
+                  return callback(err);
+                } else {
+                  return callback(null, updatedFeed);
+                }
+              });
+            }
           }
-
-        });
+        })
       }
     });
   },

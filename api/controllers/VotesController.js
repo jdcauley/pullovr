@@ -11,10 +11,6 @@ module.exports = {
 
 		var params = req.params.all();
 
-		console.log(params.vote);
-		console.log('user id: ' + req.session.passport.user);
-		console.log(req.isSocket);
-
 		if(req.session.passport.user && req.session.feed && params.vote){
 
 			utility.votes({
@@ -23,7 +19,14 @@ module.exports = {
 				feed: req.session.feed},
 			function(err, feed){
 				if(err) res.json(err);
-				if(feed) res.json({feed: feed});
+				if(feed){
+					res.json({
+						votes: {
+							upVote: feed[0].upVote,
+							downVote: feed[0].downVote
+						}
+					});
+				}
 
 			});
 
